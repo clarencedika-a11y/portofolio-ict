@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portofolio Profesional & Admin Manager</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lavender: {
+                            50: '#FAF7FD',
+                            100: '#F2E8FA',
+                            200: '#E2D1F3',
+                            300: '#CEB2EA',
+                            400: '#B48ADF',
+                            500: '#9B64D4',
+                            600: '#8246BF',
+                        },
+                        purpleDark: '#584175',
+                        purpleText: '#4A3563',
+                        purpleSoftBg: '#7A5B9E',
+                    },
+                    fontFamily: {
+                        futura: ['Futura PT', 'Futura', 'Trebuchet MS', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Futura PT', 'Futura', 'Trebuchet MS', sans-serif;
+            background-color: #FAF7FD;
+            color: #4A3563;
+            overflow-x: hidden;
+        }
+        .font-futura-bold {
+            font-family: 'Futura PT', 'Futura', sans-serif;
+            font-weight: 700;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .cartwheel-container {
+            perspective: 1000px;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+        .cartwheel-card {
+            scroll-snap-align: center;
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.35s ease, box-shadow 0.35s ease;
+            transform-origin: center 130%;
+        }
+        .soft-shadow {
+            box-shadow: 0 10px 28px -6px rgba(155, 100, 212, 0.15), 0 4px 10px -2px rgba(88, 65, 117, 0.06);
+        }
+        .soft-shadow-hover:hover {
+            box-shadow: 0 16px 32px -4px rgba(155, 100, 212, 0.25), 0 6px 14px -2px rgba(88, 65, 117, 0.1);
+            transform: translateY(-3px);
+        }
+        .section-template-icon-grid .hobby-card {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .section-template-icon-grid .hobby-card .detail-reveal {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+        .section-template-icon-grid .hobby-card.active .detail-reveal {
+            max-height: 100px;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-lavender-50 text-purpleText antialiased selection:bg-lavender-200 min-h-screen flex flex-col">
+
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-lavender-50/90 border-b border-lavender-200/80 shadow-sm">
+        <nav class="max-w-md md:max-w-4xl mx-auto px-3 py-2.5">
+            <div class="flex items-center justify-between gap-2">
+                <span class="text-base font-futura-bold tracking-wider text-purpleDark flex items-center gap-1.5 shrink-0">
+                    <span class="w-2.5 h-2.5 rounded-full bg-lavender-500 inline-block"></span> ALB.
+                </span>
+
+                <div class="flex items-center space-x-1 overflow-x-auto no-scrollbar py-1 px-1">
+                    <a href="#beranda" class="px-2.5 py-1 text-xs font-futura-bold text-purpleDark hover:bg-lavender-200/60 rounded-full transition-all whitespace-nowrap active-nav">Beranda</a>
+                    <a href="#tentang" class="px-2.5 py-1 text-xs font-futura-bold text-purpleDark/80 hover:bg-lavender-200/60 rounded-full transition-all whitespace-nowrap">Tentang Saya</a>
+                    <!-- Dynamic sections will be added here via JS -->
+                    <div id="dynamicNavLinks" class="flex items-center space-x-1"></div>
+                    <a href="#kontak" class="px-3 py-1 text-xs font-futura-bold bg-lavender-500 text-white rounded-full transition-all whitespace-nowrap shadow-sm hover:bg-lavender-600">Kontak</a>
+                </div>
+
+                <button id="adminTriggerBtn" onclick="toggleAdminModal()" class="shrink-0 w-8 h-8 rounded-full bg-lavender-200/80 hover:bg-lavender-300 text-purpleDark flex items-center justify-center text-xs transition-all soft-shadow" title="Kelola Admin Backend">
+                    <i class="fa-solid fa-lock" id="adminLockIcon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-md md:max-w-4xl mx-auto px-4 pt-6 pb-16 space-y-12 flex-grow w-full">
+
+        <section id="beranda" class="pt-2 text-center space-y-4">
+            <div class="relative inline-block">
+                <div class="w-28 h-28 md:w-36 md:h-36 mx-auto rounded-full p-1 bg-gradient-to-tr from-lavender-300 via-lavender-400 to-lavender-500 soft-shadow">
+                    <img id="displayAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400" alt="Profil" onerror="this.onerror=null;this.src='https://placehold.co/400x400/E2D1F3/584175?text=Foto+Profil'" class="w-full h-full object-cover rounded-full border-2 border-white" />
+                </div>
+                <span class="absolute bottom-1 right-1 bg-emerald-400 text-white p-1 rounded-full text-xs border-2 border-white flex items-center justify-center">
+                    <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
+                </span>
+            </div>
+
+            <div class="space-y-1.5">
+                <span id="displayBadge" class="inline-block px-3 py-1 bg-lavender-200/70 text-purpleDark text-[11px] font-futura-bold rounded-full tracking-wide">MOBILE UI/UX DESIGNER</span>
+                <h1 class="text-2xl md:text-4xl font-futura-bold text-purpleDark tracking-tight">Halo, Saya <span id="displayName" class="text-lavender-600">Alisha Bella</span></h1>
+                <p id="displayBio" class="text-purpleDark/80 text-xs md:text-sm max-w-md mx-auto leading-relaxed">
+                    Merancang pengalaman digital mobile yang estetis, lembut, dan intuitif dengan pendekatan berpusat pada kenyamanan pengguna.
+                </p>
+            </div>
+
+            <div class="flex items-center justify-center gap-2.5 pt-1">
+                <a href="#dynamic-sections" class="px-5 py-2.5 bg-purpleDark text-white font-futura-bold text-xs rounded-xl soft-shadow hover:bg-purpleDark/90 transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-compass text-lavender-300"></i> Portofolio
+                </a>
+                <a href="#kontak" class="px-5 py-2.5 bg-white text-purpleDark border border-lavender-300 font-futura-bold text-xs rounded-xl soft-shadow hover:bg-lavender-100 transition-all">
+                    Hubungi Saya
+                </a>
+            </div>
+        </section>
+
+        <section id="tentang" class="space-y-3">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-5 bg-lavender-500 rounded-full"></div>
+                <h2 class="text-xl font-futura-bold text-purpleDark">Tentang Saya</h2>
+            </div>
+            <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl border border-lavender-200/70 soft-shadow space-y-3">
+                <p id="displayAbout" class="text-purpleDark/90 text-xs leading-relaxed">
+                    Desainer UI/UX dengan fokus khusus pada mobile app interfaces dan skema warna harmonis. Berpengalaman 4+ tahun menciptakan desain yang elegan dan bernavigasi ramah ibu jari (thumb-friendly).
+                </p>
+                <div class="grid grid-cols-2 gap-2.5 pt-1 text-xs font-futura-bold">
+                    <div class="bg-lavender-100/70 p-2.5 rounded-xl border border-lavender-200/80 flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-lavender-600"></i>
+                        <span id="displayLocation" class="text-purpleDark">Jakarta, ID</span>
+                    </div>
+                    <div class="bg-lavender-100/70 p-2.5 rounded-xl border border-lavender-200/80 flex items-center gap-2">
+                        <i class="fa-solid fa-laptop-code text-lavender-600"></i>
+                        <span id="displayStatus" class="text-purpleDark">Open Project</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DYNAMIC SECTIONS CONTAINER -->
+        <section id="dynamic-sections" class="space-y-12">
+            <!-- Each section will be rendered here by JavaScript -->
+        </section>
+
+        <section id="kontak" class="space-y-3">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-5 bg-lavender-500 rounded-full"></div>
+                <h2 class="text-xl font-futura-bold text-purpleDark">Hubungi Saya</h2>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-lavender-200/80 soft-shadow">
+                <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-2.5">
+                    <div>
+                        <label class="block text-[11px] font-futura-bold text-purpleDark mb-0.5">Nama Lengkap</label>
+                        <input type="text" required placeholder="Nama Anda" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark" />
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-futura-bold text-purpleDark mb-0.5">Email</label>
+                        <input type="email" required placeholder="nama@email.com" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark" />
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-futura-bold text-purpleDark mb-0.5">Pesan</label>
+                        <textarea rows="2.5" required placeholder="Tuliskan ide proyek Anda..." class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-2.5 bg-lavender-500 hover:bg-lavender-600 text-white font-futura-bold text-xs rounded-xl soft-shadow transition-all">
+                        Kirim Pesan <i class="fa-solid fa-paper-plane ml-1"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-lavender-200/80 py-6 text-center space-y-3 font-futura-bold mt-auto">
+        <div id="footerSocials" class="flex justify-center gap-3 text-purpleDark">
+            <a href="https://instagram.com" target="_blank" id="socialInsta" class="w-8 h-8 rounded-full bg-lavender-100 hover:bg-lavender-500 hover:text-white flex items-center justify-center transition-all text-xs" title="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://linkedin.com" target="_blank" id="socialLinkedin" class="w-8 h-8 rounded-full bg-lavender-100 hover:bg-lavender-500 hover:text-white flex items-center justify-center transition-all text-xs" title="LinkedIn">
+                <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com" target="_blank" id="socialGithub" class="w-8 h-8 rounded-full bg-lavender-100 hover:bg-lavender-500 hover:text-white flex items-center justify-center transition-all text-xs" title="GitHub">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://x.com" target="_blank" id="socialTwitter" class="w-8 h-8 rounded-full bg-lavender-100 hover:bg-lavender-500 hover:text-white flex items-center justify-center transition-all text-xs" title="Twitter / X">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <a href="mailto:alisha@example.com" id="socialEmail" class="w-8 h-8 rounded-full bg-lavender-100 hover:bg-lavender-500 hover:text-white flex items-center justify-center transition-all text-xs" title="Email">
+                <i class="fa-solid fa-envelope"></i>
+            </a>
+        </div>
+        <div class="text-xs text-purpleDark/80">
+            <p>© 2026 <span id="footerName">Alisha Bella</span>. All rights reserved.</p>
+            <p class="text-[10px] text-purpleDark/50 mt-0.5">Soft Lavender & Futura Mobile CMS Portfolio</p>
+        </div>
+    </footer>
+
+    <!-- ========== ADMIN LOGIN MODAL ========== -->
+    <div id="adminLoginModal" class="fixed inset-0 z-50 bg-purpleDark/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-sm w-full border border-lavender-200 soft-shadow space-y-4 relative">
+            <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 text-purpleDark/50 hover:text-purpleDark">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 bg-lavender-100 rounded-2xl flex items-center justify-center text-lavender-600 mx-auto text-xl">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3 class="text-lg font-futura-bold text-purpleDark">Login Admin Backend</h3>
+                <p class="text-[11px] text-purpleDark/70">Masukkan kredensial administrator.</p>
+            </div>
+
+            <form onsubmit="handleAdminLogin(event)" class="space-y-3">
+                <div>
+                    <label class="block text-[11px] font-futura-bold text-purpleDark mb-1">Username Admin</label>
+                    <input type="text" id="adminUser" required placeholder="Masukkan Username" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark" />
+                </div>
+                <div>
+                    <label class="block text-[11px] font-futura-bold text-purpleDark mb-1">Password</label>
+                    <input type="password" id="adminPass" required placeholder="••••••••" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark" />
+                </div>
+                <div id="loginErrorMsg" class="text-[11px] text-rose-500 font-futura-bold hidden text-center">
+                    Username atau password salah!
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-lavender-500 hover:bg-lavender-600 text-white font-futura-bold text-xs rounded-xl soft-shadow transition-all">
+                    Masuk ke Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== FULL SCREEN ADMIN DASHBOARD ========== -->
+    <div id="adminPanelModal" class="fixed inset-0 z-50 bg-lavender-50 hidden flex flex-col w-screen h-screen overflow-hidden">
+
+        <header class="bg-white border-b border-lavender-200 px-6 py-4 flex items-center justify-between shrink-0 shadow-sm">
+            <div class="flex items-center gap-3">
+                <span class="p-2.5 rounded-2xl bg-lavender-500 text-white text-lg shadow-sm">
+                    <i class="fa-solid fa-sliders"></i>
+                </span>
+                <div>
+                    <h2 class="font-futura-bold text-purpleDark text-lg md:text-xl">CMS Backend Manager (Full Screen)</h2>
+                    <p class="text-xs text-purpleDark/60">Kelola seluruh bagian portofolio secara dinamis</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button onclick="openChangeCredsModal()" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-purpleDark bg-lavender-100 hover:bg-lavender-200 border border-lavender-200 font-futura-bold rounded-xl transition-all">
+                    <i class="fa-solid fa-key"></i> Ubah Kredensial
+                </button>
+                <button onclick="resetDataToDefault()" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200 font-futura-bold rounded-xl transition-all">
+                    <i class="fa-solid fa-rotate-left"></i> Reset Total
+                </button>
+                <button onclick="logoutAdmin()" class="px-3 py-1.5 bg-rose-500 hover:bg-rose-600 text-white font-futura-bold text-xs rounded-xl transition-all shadow-sm">
+                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
+                </button>
+                <button onclick="closeAdminPanel()" class="w-9 h-9 bg-lavender-100 hover:bg-lavender-200 text-purpleDark rounded-xl flex items-center justify-center transition-all" title="Tutup Full Screen">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="flex flex-col md:flex-row flex-grow overflow-hidden max-w-7xl mx-auto w-full p-4 md:p-6 gap-6">
+
+            <!-- Sidebar -->
+            <div class="w-full md:w-64 bg-white rounded-3xl p-3 border border-lavender-200 soft-shadow shrink-0 flex md:flex-col gap-1.5 overflow-x-auto no-scrollbar">
+                <button onclick="switchAdminTab('sections')" id="tabBtnSections" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-futura-bold bg-lavender-500 text-white shadow-sm transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-layer-group text-sm"></i> Kelola Bagian
+                </button>
+                <button onclick="switchAdminTab('profile')" id="tabBtnProfile" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-futura-bold text-purpleDark hover:bg-lavender-100 transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-id-card text-sm"></i> Profil & Social
+                </button>
+                <button onclick="openChangeCredsModal()" class="md:hidden w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-futura-bold text-purpleDark hover:bg-lavender-100 transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-key text-sm"></i> Ubah Kredensial
+                </button>
+                <button onclick="resetDataToDefault()" class="md:hidden w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-futura-bold text-rose-600 hover:bg-rose-50 transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-rotate-left text-sm"></i> Reset Total
+                </button>
+                <div class="hidden md:block mt-auto pt-4 border-t border-lavender-100 text-center">
+                    <p class="text-[10px] text-purpleDark/50 mt-1">Status: Firebase Connected</p>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-grow bg-white rounded-3xl p-5 md:p-6 border border-lavender-200 soft-shadow overflow-y-auto no-scrollbar">
+
+                <!-- TAB SECTIONS -->
+                <div id="tabContentSections" class="space-y-4">
+                    <div class="flex items-center justify-between pb-3 border-b border-lavender-100">
+                        <div>
+                            <h3 class="font-futura-bold text-purpleDark text-base">Kelola Bagian (Sections)</h3>
+                            <p class="text-xs text-purpleDark/60">Tambah, hapus, ubah nama, pilih template, dan kelola item di setiap bagian</p>
+                        </div>
+                        <button onclick="openAddSectionModal()" class="px-4 py-2 bg-lavender-500 text-white rounded-xl text-xs font-futura-bold hover:bg-lavender-600 flex items-center gap-1.5 shadow-sm transition-all">
+                            <i class="fa-solid fa-plus"></i> Tambah Bagian
+                        </button>
+                    </div>
+                    <div id="adminSectionsList" class="space-y-4">
+                        <!-- Dynamically rendered -->
+                    </div>
+                </div>
+
+                <!-- TAB PROFILE -->
+                <div id="tabContentProfile" class="space-y-4 hidden">
+                    <div class="pb-3 border-b border-lavender-100">
+                        <h3 class="font-futura-bold text-purpleDark text-base">Pengaturan Profil & Media Sosial</h3>
+                        <p class="text-xs text-purpleDark/60">Perbarui identitas header, bio, tentang saya, dan link kontak</p>
+                    </div>
+                    <form onsubmit="handleSaveProfile(event)" class="space-y-4 max-w-2xl">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-futura-bold text-purpleDark mb-1">Nama Lengkap</label>
+                                <input type="text" id="editName" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                            </div>
+                            <div>
+                                <label class="block text-xs font-futura-bold text-purpleDark mb-1">Badge Role / Judul</label>
+                                <input type="text" id="editBadge" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-futura-bold text-purpleDark mb-1">URL Foto Profil</label>
+                            <input type="url" id="editAvatar" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                        </div>
+                        <div>
+                            <label class="block text-xs font-futura-bold text-purpleDark mb-1">Ringkasan Bio (Beranda Hero)</label>
+                            <textarea id="editBio" rows="2" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-futura-bold text-purpleDark mb-1">Teks Tentang Saya</label>
+                            <textarea id="editAbout" rows="3" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark"></textarea>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-futura-bold text-purpleDark mb-1">Lokasi</label>
+                                <input type="text" id="editLocation" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                            </div>
+                            <div>
+                                <label class="block text-xs font-futura-bold text-purpleDark mb-1">Status Pekerjaan</label>
+                                <input type="text" id="editStatus" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                            </div>
+                        </div>
+
+                        <div class="pt-3 border-t border-lavender-100 space-y-3">
+                            <span class="text-xs font-futura-bold text-purpleDark block">Link Media Sosial Footer</span>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-[10px] text-purpleDark/70 mb-0.5">Instagram URL</label>
+                                    <input type="url" id="editInsta" placeholder="https://instagram.com/username" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-purpleDark/70 mb-0.5">LinkedIn URL</label>
+                                    <input type="url" id="editLinkedin" placeholder="https://linkedin.com/in/username" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-purpleDark/70 mb-0.5">GitHub URL</label>
+                                    <input type="url" id="editGithub" placeholder="https://github.com/username" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-purpleDark/70 mb-0.5">Twitter / X URL</label>
+                                    <input type="url" id="editTwitter" placeholder="https://x.com/username" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="px-6 py-2.5 bg-purpleDark text-white font-futura-bold text-xs rounded-xl hover:bg-purpleDark/90 transition-all shadow-sm">
+                            <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan Perubahan Profil
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MODAL: TAMBAH BAGIAN ========== -->
+    <div id="addSectionModal" class="fixed inset-0 z-50 bg-purpleDark/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full border border-lavender-200 soft-shadow space-y-4 relative">
+            <button onclick="closeAddSectionModal()" class="absolute top-4 right-4 text-purpleDark/50 hover:text-purpleDark">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h4 class="font-futura-bold text-purpleDark text-base">Tambah Bagian Baru</h4>
+            <form onsubmit="handleAddSection(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-futura-bold text-purpleDark mb-1">Nama Bagian</label>
+                    <input type="text" id="newSectionName" required placeholder="Misal: Portofolio, Hobi, dll." class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                </div>
+                <div>
+                    <label class="block text-xs font-futura-bold text-purpleDark mb-1">Template Tampilan</label>
+                    <select id="newSectionTemplate" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark">
+                        <option value="horizontal-carousel">Horizontal Carousel (Kartu geser)</option>
+                        <option value="vertical-list">Vertical List (Daftar vertikal)</option>
+                        <option value="icon-grid">Icon Grid (Klik untuk detail)</option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-2 pt-2">
+                    <button type="button" onclick="closeAddSectionModal()" class="w-1/3 py-2.5 bg-lavender-100 text-purpleDark font-futura-bold text-xs rounded-xl hover:bg-lavender-200 transition-all">Batal</button>
+                    <button type="submit" class="w-2/3 py-2.5 bg-lavender-500 hover:bg-lavender-600 text-white font-futura-bold text-xs rounded-xl transition-all shadow-sm">Tambah Bagian</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== MODAL: UBAH KREDENSIAL ========== -->
+    <div id="changeCredsModal" class="fixed inset-0 z-50 bg-purpleDark/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full border border-lavender-200 soft-shadow space-y-4 relative">
+            <button onclick="closeChangeCredsModal()" class="absolute top-4 right-4 text-purpleDark/50 hover:text-purpleDark">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 bg-lavender-100 rounded-2xl flex items-center justify-center text-lavender-600 mx-auto text-xl">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <h3 class="text-lg font-futura-bold text-purpleDark">Ubah Kredensial Admin</h3>
+                <p class="text-[11px] text-purpleDark/70">Masukkan PIN 6 digit untuk mengubah username dan password.</p>
+            </div>
+            <form onsubmit="handleChangeCreds(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-futura-bold text-purpleDark mb-1">PIN (6 digit)</label>
+                    <input type="password" id="changePin" required maxlength="6" placeholder="••••••" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                </div>
+                <div>
+                    <label class="block text-xs font-futura-bold text-purpleDark mb-1">Username Baru</label>
+                    <input type="text" id="changeNewUser" required placeholder="Username baru" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                </div>
+                <div>
+                    <label class="block text-xs font-futura-bold text-purpleDark mb-1">Password Baru</label>
+                    <input type="password" id="changeNewPass" required placeholder="Password baru" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                </div>
+                <div id="changeCredsError" class="text-[11px] text-rose-500 font-futura-bold hidden text-center"></div>
+                <button type="submit" class="w-full py-2.5 bg-lavender-500 hover:bg-lavender-600 text-white font-futura-bold text-xs rounded-xl soft-shadow transition-all">
+                    Simpan Kredensial
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== MODAL: TAMBAH / EDIT ITEM (per section) ========== -->
+    <div id="itemEditModal" class="fixed inset-0 z-50 bg-purpleDark/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full border border-lavender-200 soft-shadow space-y-4 relative">
+            <button onclick="closeItemModal()" class="absolute top-4 right-4 text-purpleDark/50 hover:text-purpleDark">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h4 id="itemModalTitle" class="font-futura-bold text-purpleDark text-base">Tambah Item</h4>
+
+            <form onsubmit="handleSaveItem(event)" class="space-y-3">
+                <input type="hidden" id="editItemSectionId" />
+                <input type="hidden" id="editItemId" />
+
+                <div>
+                    <label class="block text-xs font-futura-bold text-purpleDark mb-1" id="labelTitleInput">Judul</label>
+                    <input type="text" id="itemTitleInput" required class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                </div>
+
+                <!-- Portfolio specific fields (optional) -->
+                <div id="portfolioSpecificFields" class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-futura-bold text-purpleDark mb-1">Kategori / Tag</label>
+                        <input type="text" id="itemCategoryInput" placeholder="Misal: UI/UX App" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-futura-bold text-purpleDark mb-1">URL Gambar Cover</label>
+                        <input type="url" id="itemImageInput" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-futura-bold text-purpleDark mb-1">Link Detail</label>
+                        <input type="url" id="itemLinkInput" placeholder="https://..." class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                    </div>
+                </div>
+
+                <!-- Hobby specific fields (icon) -->
+                <div id="hobbySpecificFields" class="space-y-3 hidden">
+                    <div>
+                        <label class="block text-xs font-futura-bold text-purpleDark mb-1">Icon FontAwesome Class</label>
+                        <input type="text" id="itemIconInput" placeholder="fa-solid fa-camera" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                    </div>
+                </div>
+
+                <!-- Education & Experience specific fields (period, subtitle/company) -->
+                <div id="educationSpecificFields" class="space-y-3 hidden">
+                    <div>
+                        <label class="block text-xs font-futura-bold text-purpleDark mb-1">Periode</label>
+                        <input type="text" id="itemEduPeriodInput" placeholder="2018 - 2022" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-futura-bold text-purpleDark mb-1">Institusi / Perusahaan</label>
+                        <input type="text" id="itemEduSubtitleInput" placeholder="Nama institusi" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                    </div>
+                </div>
+
+                <!-- Experience specific fields (company) -->
+                <div id="experienceSpecificFields" class="space-y-3 hidden">
+                    <div>
+                        <label class="block text-xs font-futura-bold text-purpleDark mb-1">Perusahaan / Organisasi</label>
+                        <input type="text" id="itemExpCompanyInput" placeholder="Nama perusahaan" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" />
+                    </div>
+                </div>
+
+                <!-- Description field -->
+                <div id="descFieldContainer">
+                    <label class="block text-xs font-futura-bold text-purpleDark mb-1" id="labelDescInput">Deskripsi</label>
+                    <textarea id="itemDescInput" rows="2" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark"></textarea>
+                </div>
+
+                <div class="flex items-center gap-2 pt-2">
+                    <button type="button" onclick="closeItemModal()" class="w-1/3 py-2.5 bg-lavender-100 text-purpleDark font-futura-bold text-xs rounded-xl hover:bg-lavender-200 transition-all">Batal</button>
+                    <button type="submit" class="w-2/3 py-2.5 bg-lavender-500 hover:bg-lavender-600 text-white font-futura-bold text-xs rounded-xl transition-all shadow-sm">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== TOAST ========== -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-purpleDark text-white text-xs font-futura-bold px-4 py-2.5 rounded-xl shadow-xl transition-all duration-300 opacity-0 pointer-events-none translate-y-4 flex items-center gap-2">
+        <i class="fa-solid fa-circle-check text-lavender-300 text-sm" id="toastIcon"></i>
+        <span id="toastMsg">Pesan terkirim!</span>
+    </div>
+
+    <!-- ========== MAIN SCRIPT ========== -->
+    <script>
+        // --------------------------------------------------------------
+        //  DEFAULT DATA - now we have a default section set, but reset will clear all
+        // --------------------------------------------------------------
+        const DEFAULT_SECTIONS = [
+            { id: 'sec1', name: 'Portofolio', template: 'horizontal-carousel', items: [
+                { id: 'it1', title: 'Bloom Wellness Mobile', category: 'UI/UX App', image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=500', desc: 'Aplikasi meditasi & kesehatan mental dengan tema pastel calming UI.', link: '#' },
+                { id: 'it2', title: 'Lavender E-Commerce', category: 'Web Design', image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=500', desc: 'Toko online produk organik ramah lingkungan dengan navigasi responsif.', link: '#' },
+                { id: 'it3', title: 'Fintech Smart Wallet', category: 'Dashboard', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=500', desc: 'Analisis keuangan pribadi & dompet digital dengan chart simpel.', link: '#' },
+                { id: 'it4', title: 'Aura Coffee Branding', category: 'Branding', image: 'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&q=80&w=500', desc: 'Identitas visual modern lengkap untuk jaringan kafe estetis.', link: '#' }
+            ]},
+            { id: 'sec2', name: 'Hobi & Minat', template: 'icon-grid', items: [
+                { id: 'it5', title: 'Fotografi', icon: 'fa-solid fa-camera', desc: 'Minimalist Street Visuals' },
+                { id: 'it6', title: 'Creative Code', icon: 'fa-solid fa-code', desc: 'Tailwind & UI Magic' },
+                { id: 'it7', title: 'Membaca', icon: 'fa-solid fa-book-open', desc: 'UI Psychology & Books' },
+                { id: 'it8', title: 'Kopi & Sketsa', icon: 'fa-solid fa-mug-hot', desc: 'Wireframing Ide Baru' }
+            ]},
+            { id: 'sec3', name: 'Pendidikan', template: 'vertical-list', items: [
+                { id: 'it9', period: '2018 - 2022', title: 'S1 Desain Komunikasi Visual', subtitle: 'Universitas Multimedia Nusantara' },
+                { id: 'it10', period: '2022', title: 'Google UX Design Certificate', subtitle: 'Coursera Certification' }
+            ]},
+            { id: 'sec4', name: 'Pengalaman Kerja', template: 'vertical-list', items: [
+                { id: 'it11', period: '2022 - Sekarang', title: 'Senior Mobile UI Designer', company: 'Studio Kreatif Digital', desc: 'Mendesain antarmuka aplikasi iOS & Android serta menyusun design system perusahaan.' },
+                { id: 'it12', period: '2020 - 2022', title: 'Junior Web Designer', company: 'Tech Inovasi Indonesia', desc: 'Mengembangkan landing page responsif, prototipe interaktif, dan materi visual e-commerce.' }
+            ]}
+        ];
+
+        const DEFAULT_PROFILE = {
+            name: 'Alisha Bella',
+            badge: 'MOBILE UI/UX DESIGNER',
+            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400',
+            bio: 'Merancang pengalaman digital mobile yang estetis, lembut, dan intuitif dengan pendekatan berpusat pada kenyamanan pengguna.',
+            about: 'Desainer UI/UX dengan fokus khusus pada mobile app interfaces dan skema warna harmonis. Berpengalaman 4+ tahun menciptakan desain yang elegan dan bernavigasi ramah ibu jari (thumb-friendly).',
+            location: 'Jakarta, ID',
+            status: 'Open Project',
+            socialInsta: 'https://instagram.com',
+            socialLinkedin: 'https://linkedin.com',
+            socialGithub: 'https://github.com',
+            socialTwitter: 'https://x.com'
+        };
+
+        const DEFAULT_ADMIN_CREDS = { username: 'admin', password: 'admin123' };
+        const PIN_CODE = 'ICTMB2'; // case-sensitive
+
+        // --------------------------------------------------------------
+        //  STATE
+        // --------------------------------------------------------------
+        function loadState() {
+            try {
+                const saved = localStorage.getItem('lavender_portfolio_state');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    return {
+                        sections: parsed.sections || [],
+                        profile: parsed.profile || DEFAULT_PROFILE,
+                        adminCreds: parsed.adminCreds || DEFAULT_ADMIN_CREDS,
+                        isAdminLoggedIn: sessionStorage.getItem('admin_logged_in') === 'true'
+                    };
+                }
+            } catch (e) { /* ignore */ }
+            return {
+                sections: DEFAULT_SECTIONS,
+                profile: DEFAULT_PROFILE,
+                adminCreds: DEFAULT_ADMIN_CREDS,
+                isAdminLoggedIn: sessionStorage.getItem('admin_logged_in') === 'true'
+            };
+        }
+
+        let state = loadState();
+
+        function saveState() {
+            try {
+                localStorage.setItem('lavender_portfolio_state', JSON.stringify({
+                    sections: state.sections,
+                    profile: state.profile,
+                    adminCreds: state.adminCreds
+                }));
+            } catch (e) { /* ignore */ }
+        }
+
+        // --------------------------------------------------------------
+        //  UTILITY
+        // --------------------------------------------------------------
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            if (!toast || !toastMsg) return;
+            toastMsg.innerText = message;
+            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+            }, 3000);
+        }
+
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substring(2, 6);
+        }
+
+        // --------------------------------------------------------------
+        //  RENDER FUNCTIONS
+        // --------------------------------------------------------------
+        function renderAllUI() {
+            renderProfileData();
+            renderDynamicSections();
+            renderAdminSectionsList();
+            renderDynamicNav();
+            updateAdminUIState();
+        }
+
+        function renderDynamicNav() {
+            const container = document.getElementById('dynamicNavLinks');
+            if (!container) return;
+            container.innerHTML = state.sections.map(sec =>
+                `<a href="#section-${sec.id}" class="px-2.5 py-1 text-xs font-futura-bold text-purpleDark/80 hover:bg-lavender-200/60 rounded-full transition-all whitespace-nowrap">${sec.name}</a>`
+            ).join('');
+        }
+
+        function renderProfileData() {
+            const p = state.profile;
+            document.getElementById('displayName').innerText = p.name || 'Alisha Bella';
+            document.getElementById('footerName').innerText = p.name || 'Alisha Bella';
+            document.getElementById('displayBadge').innerText = p.badge || 'MOBILE UI/UX DESIGNER';
+            document.getElementById('displayBio').innerText = p.bio || '';
+            document.getElementById('displayAbout').innerText = p.about || '';
+            document.getElementById('displayLocation').innerText = p.location || 'Jakarta, ID';
+            document.getElementById('displayStatus').innerText = p.status || 'Open Project';
+            const avatarImg = document.getElementById('displayAvatar');
+            if (avatarImg && p.avatar) avatarImg.src = p.avatar;
+            if (p.socialInsta) document.getElementById('socialInsta').href = p.socialInsta;
+            if (p.socialLinkedin) document.getElementById('socialLinkedin').href = p.socialLinkedin;
+            if (p.socialGithub) document.getElementById('socialGithub').href = p.socialGithub;
+            if (p.socialTwitter) document.getElementById('socialTwitter').href = p.socialTwitter;
+        }
+
+        function renderDynamicSections() {
+            const container = document.getElementById('dynamic-sections');
+            if (!container) return;
+            if (!state.sections || state.sections.length === 0) {
+                container.innerHTML =
+                    `<div class="text-center text-purpleDark/50 text-xs py-12">Belum ada bagian. Tambahkan dari Admin Panel.</div>`;
+                return;
+            }
+            let html = '';
+            state.sections.forEach(sec => {
+                html += `<section id="section-${sec.id}" class="space-y-3">`;
+                html += `<div class="flex items-center gap-2">
+                            <div class="w-2 h-5 bg-lavender-500 rounded-full"></div>
+                            <h2 class="text-xl font-futura-bold text-purpleDark">${sec.name}</h2>
+                        </div>`;
+                html += `<div class="section-template-${sec.template}">`;
+                // Render based on template
+                if (sec.template === 'horizontal-carousel') {
+                    html += renderHorizontalCarousel(sec.items);
+                } else if (sec.template === 'vertical-list') {
+                    html += renderVerticalList(sec.items);
+                } else if (sec.template === 'icon-grid') {
+                    html += renderIconGrid(sec.items);
+                } else {
+                    html += `<p class="text-xs text-purpleDark/50">Template tidak dikenali</p>`;
+                }
+                html += `</div></section>`;
+            });
+            container.innerHTML = html;
+            // Re-initialize any interactive elements (e.g., icon-grid click)
+            document.querySelectorAll('.section-template-icon-grid .hobby-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+            // Cartwheel effect for horizontal-carousel
+            setTimeout(updateCartwheelEffect, 100);
+        }
+
+        function renderHorizontalCarousel(items) {
+            if (!items || items.length === 0) return `<p class="text-xs text-purpleDark/50">Belum ada item.</p>`;
+            return `<div class="cartwheel-container flex gap-4 overflow-x-auto no-scrollbar py-6 px-3 -mx-3 min-h-[260px]">
+                        ${items.map(item => `
+                            <div class="cartwheel-card min-w-[250px] w-[250px] md:min-w-[280px] md:w-[280px] bg-white rounded-2xl p-3.5 border border-lavender-200 soft-shadow flex-shrink-0 space-y-2.5">
+                                <div class="h-36 rounded-xl overflow-hidden relative bg-lavender-100">
+                                    <img src="${item.image || 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=500'}" alt="${item.title}" onerror="this.onerror=null;this.src='https://placehold.co/500x300/E2D1F3/584175?text=Gambar'" class="w-full h-full object-cover" />
+                                    <span class="absolute top-2 right-2 bg-lavender-500 text-white text-[9px] font-futura-bold px-2 py-0.5 rounded-full">${item.category || 'Item'}</span>
+                                </div>
+                                <h3 class="font-futura-bold text-purpleDark text-sm truncate">${item.title}</h3>
+                                <p class="text-[11px] text-purpleDark/70 leading-relaxed line-clamp-2">${item.desc || ''}</p>
+                                <button onclick="window.open('${item.link || '#'}', '_blank')" class="w-full py-1.5 bg-lavender-100 text-purpleDark font-futura-bold text-xs rounded-lg hover:bg-lavender-200 transition-all flex items-center justify-center gap-1">
+                                    Lihat Detail <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>`;
+        }
+
+        function renderVerticalList(items) {
+            if (!items || items.length === 0) return `<p class="text-xs text-purpleDark/50">Belum ada item.</p>`;
+            return `<div class="space-y-2.5 relative before:absolute before:inset-0 before:left-3 before:w-0.5 before:bg-lavender-200">
+                        ${items.map(item => `
+                            <div class="relative pl-7 bg-white p-3.5 rounded-2xl border border-lavender-200/70 soft-shadow">
+                                <div class="absolute left-1.5 top-4 w-3 h-3 rounded-full bg-lavender-500 border-2 border-white"></div>
+                                ${item.period ? `<span class="text-[9px] font-futura-bold bg-lavender-100 text-lavender-600 px-2 py-0.5 rounded-full">${item.period}</span>` : ''}
+                                <h3 class="font-futura-bold text-purpleDark text-sm mt-1">${item.title}</h3>
+                                ${item.subtitle ? `<p class="text-[11px] text-purpleDark/70">${item.subtitle}</p>` : ''}
+                                ${item.company ? `<p class="text-[11px] text-lavender-600 font-semibold">${item.company}</p>` : ''}
+                                ${item.desc ? `<p class="text-[11px] text-purpleDark/80 leading-relaxed pt-1">${item.desc}</p>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>`;
+        }
+
+        function renderIconGrid(items) {
+            if (!items || items.length === 0) return `<p class="text-xs text-purpleDark/50">Belum ada item.</p>`;
+            return `<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        ${items.map(item => `
+                            <div class="hobby-card bg-white p-3.5 rounded-2xl border border-lavender-200/80 soft-shadow soft-shadow-hover transition-all text-center space-y-1.5 cursor-pointer">
+                                <div class="w-10 h-10 mx-auto rounded-xl bg-lavender-100 text-lavender-600 flex items-center justify-center text-lg">
+                                    <i class="${item.icon || 'fa-solid fa-star'}"></i>
+                                </div>
+                                <h3 class="font-futura-bold text-purpleDark text-xs truncate">${item.title}</h3>
+                                <div class="detail-reveal">
+                                    <p class="text-purpleDark/70 text-[10px] line-clamp-2">${item.desc || ''}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>`;
+        }
+
+        function updateCartwheelEffect() {
+            const containers = document.querySelectorAll('.cartwheel-container');
+            containers.forEach(container => {
+                const cards = container.querySelectorAll('.cartwheel-card');
+                if (!cards.length) return;
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                cards.forEach(card => {
+                    const r = card.getBoundingClientRect();
+                    const offset = (r.left + r.width / 2 - centerX) / (rect.width / 2);
+                    const rotateZ = offset * 12;
+                    const translateY = Math.abs(offset) * 14;
+                    const scale = Math.max(0.9, 1 - Math.abs(offset) * 0.1);
+                    const opacity = Math.max(0.7, 1 - Math.abs(offset) * 0.3);
+                    card.style.transform = `translateY(${translateY}px) rotate(${rotateZ}deg) scale(${scale})`;
+                    card.style.opacity = opacity;
+                });
+            });
+        }
+
+        // --------------------------------------------------------------
+        //  ADMIN UI HELPERS
+        // --------------------------------------------------------------
+        function updateAdminUIState() {
+            const lockIcon = document.getElementById('adminLockIcon');
+            const triggerBtn = document.getElementById('adminTriggerBtn');
+            if (!lockIcon || !triggerBtn) return;
+            if (state.isAdminLoggedIn) {
+                lockIcon.className = 'fa-solid fa-sliders text-lavender-600';
+                triggerBtn.classList.add('bg-lavender-300', 'ring-2', 'ring-lavender-500');
+            } else {
+                lockIcon.className = 'fa-solid fa-lock';
+                triggerBtn.classList.remove('bg-lavender-300', 'ring-2', 'ring-lavender-500');
+            }
+        }
+
+        window.toggleAdminModal = function() {
+            if (state.isAdminLoggedIn) {
+                openAdminPanel();
+            } else {
+                document.getElementById('adminLoginModal').classList.remove('hidden');
+            }
+        };
+
+        window.closeAdminLoginModal = function() {
+            document.getElementById('adminLoginModal').classList.add('hidden');
+            document.getElementById('loginErrorMsg').classList.add('hidden');
+        };
+
+        window.openAdminPanel = function() {
+            populateProfileForm();
+            renderAdminSectionsList();
+            document.getElementById('adminPanelModal').classList.remove('hidden');
+        };
+
+        window.closeAdminPanel = function() {
+            document.getElementById('adminPanelModal').classList.add('hidden');
+        };
+
+        // --------------------------------------------------------------
+        //  ADMIN LOGIN
+        // --------------------------------------------------------------
+        window.handleAdminLogin = function(e) {
+            e.preventDefault();
+            const user = document.getElementById('adminUser').value.trim();
+            const pass = document.getElementById('adminPass').value.trim();
+            const errorMsg = document.getElementById('loginErrorMsg');
+            const creds = state.adminCreds || DEFAULT_ADMIN_CREDS;
+            if (user === creds.username && pass === creds.password) {
+                errorMsg.classList.add('hidden');
+                state.isAdminLoggedIn = true;
+                sessionStorage.setItem('admin_logged_in', 'true');
+                closeAdminLoginModal();
+                updateAdminUIState();
+                showToast('Login Admin berhasil!');
+                openAdminPanel();
+            } else {
+                errorMsg.innerText = 'Username atau password salah!';
+                errorMsg.classList.remove('hidden');
+            }
+        };
+
+        window.logoutAdmin = function() {
+            state.isAdminLoggedIn = false;
+            sessionStorage.removeItem('admin_logged_in');
+            updateAdminUIState();
+            closeAdminPanel();
+            showToast('Anda telah logout.');
+        };
+
+        // --------------------------------------------------------------
+        //  ADMIN SECTIONS LIST
+        // --------------------------------------------------------------
+        function renderAdminSectionsList() {
+            const container = document.getElementById('adminSectionsList');
+            if (!container) return;
+            if (!state.sections || state.sections.length === 0) {
+                container.innerHTML =
+                    `<div class="text-center text-purpleDark/50 text-xs py-6">Belum ada bagian. Klik "Tambah Bagian" untuk memulai.</div>`;
+                return;
+            }
+            let html = '';
+            state.sections.forEach((sec, index) => {
+                html += `<div class="bg-lavender-50 p-4 rounded-2xl border border-lavender-200 soft-shadow space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="font-futura-bold text-purpleDark text-base">${sec.name}</span>
+                                    <span class="text-[10px] bg-lavender-200 text-purpleDark px-2 py-0.5 rounded-full">${sec.template}</span>
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <button onclick="openEditSectionModal('${sec.id}')" class="px-2.5 py-1 bg-lavender-200 text-purpleDark rounded-xl font-futura-bold text-[11px] hover:bg-lavender-300 transition-all">Edit</button>
+                                    <button onclick="deleteSection('${sec.id}')" class="px-2.5 py-1 bg-rose-100 text-rose-600 rounded-xl font-futura-bold text-[11px] hover:bg-rose-200 transition-all"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                ${sec.items.map(item => `
+                                    <div class="flex items-center justify-between bg-white p-2 rounded-xl border border-lavender-200 text-xs shadow-sm">
+                                        <span class="font-futura-bold text-purpleDark truncate max-w-[150px]">${item.title}</span>
+                                        <div class="flex items-center gap-1.5">
+                                            <button onclick="openEditItemModal('${sec.id}', '${item.id}')" class="px-2 py-0.5 bg-lavender-200 text-purpleDark rounded-lg font-futura-bold text-[10px] hover:bg-lavender-300 transition-all">Edit</button>
+                                            <button onclick="deleteItemFromSection('${sec.id}', '${item.id}')" class="px-2 py-0.5 bg-rose-100 text-rose-600 rounded-lg font-futura-bold text-[10px] hover:bg-rose-200 transition-all"><i class="fa-solid fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                                <button onclick="openAddItemModal('${sec.id}')" class="text-xs text-lavender-600 hover:underline font-futura-bold flex items-center gap-1">
+                                    <i class="fa-solid fa-plus"></i> Tambah Item
+                                </button>
+                            </div>
+                        </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        // --------------------------------------------------------------
+        //  SECTION CRUD
+        // --------------------------------------------------------------
+        window.openAddSectionModal = function() {
+            document.getElementById('newSectionName').value = '';
+            document.getElementById('newSectionTemplate').value = 'horizontal-carousel';
+            document.getElementById('addSectionModal').classList.remove('hidden');
+        };
+
+        window.closeAddSectionModal = function() {
+            document.getElementById('addSectionModal').classList.add('hidden');
+        };
+
+        window.handleAddSection = function(e) {
+            e.preventDefault();
+            const name = document.getElementById('newSectionName').value.trim();
+            const template = document.getElementById('newSectionTemplate').value;
+            if (!name) return;
+            const newSection = {
+                id: generateId(),
+                name: name,
+                template: template,
+                items: []
+            };
+            state.sections.push(newSection);
+            saveState();
+            renderAllUI();
+            closeAddSectionModal();
+            showToast('Bagian berhasil ditambahkan!');
+        };
+
+        window.deleteSection = function(sectionId) {
+            if (!confirm('Hapus bagian ini beserta semua item di dalamnya?')) return;
+            state.sections = state.sections.filter(sec => sec.id !== sectionId);
+            saveState();
+            renderAllUI();
+            showToast('Bagian dihapus.');
+        };
+
+        // Edit section (rename, change template)
+        window.openEditSectionModal = function(sectionId) {
+            const sec = state.sections.find(s => s.id === sectionId);
+            if (!sec) return;
+            // Simple prompt for demo; better to use modal but we'll use prompt for simplicity
+            const newName = prompt('Ubah nama bagian:', sec.name);
+            if (newName !== null && newName.trim() !== '') {
+                sec.name = newName.trim();
+            }
+            const newTemplate = prompt('Ubah template (horizontal-carousel, vertical-list, icon-grid):', sec.template);
+            if (newTemplate !== null && ['horizontal-carousel', 'vertical-list', 'icon-grid'].includes(newTemplate)) {
+                sec.template = newTemplate;
+            }
+            saveState();
+            renderAllUI();
+            showToast('Bagian diperbarui.');
+        };
+
+        // --------------------------------------------------------------
+        //  ITEM CRUD (per section)
+        // --------------------------------------------------------------
+        window.openAddItemModal = function(sectionId) {
+            document.getElementById('editItemSectionId').value = sectionId;
+            document.getElementById('editItemId').value = '';
+            // Reset fields
+            document.getElementById('itemTitleInput').value = '';
+            document.getElementById('itemCategoryInput').value = '';
+            document.getElementById('itemImageInput').value = '';
+            document.getElementById('itemLinkInput').value = '';
+            document.getElementById('itemIconInput').value = 'fa-solid fa-star';
+            document.getElementById('itemEduPeriodInput').value = '';
+            document.getElementById('itemEduSubtitleInput').value = '';
+            document.getElementById('itemExpCompanyInput').value = '';
+            document.getElementById('itemDescInput').value = '';
+            // Show/hide specific fields based on section template? We'll just show all and let user fill what's needed.
+            // We can determine based on section template, but we'll keep all visible and let user decide.
+            // However we need to know which fields to show. We'll keep all visible but we can conditionally hide some.
+            // For simplicity, show all; user can ignore.
+            document.getElementById('portfolioSpecificFields').classList.remove('hidden');
+            document.getElementById('hobbySpecificFields').classList.remove('hidden');
+            document.getElementById('educationSpecificFields').classList.remove('hidden');
+            document.getElementById('experienceSpecificFields').classList.remove('hidden');
+            // But we might want to hide some based on section? We'll keep all for flexibility.
+            document.getElementById('itemModalTitle').innerText = 'Tambah Item';
+            document.getElementById('labelTitleInput').innerText = 'Judul';
+            document.getElementById('labelDescInput').innerText = 'Deskripsi';
+            document.getElementById('itemEditModal').classList.remove('hidden');
+        };
+
+        window.openEditItemModal = function(sectionId, itemId) {
+            const sec = state.sections.find(s => s.id === sectionId);
+            if (!sec) return;
+            const item = sec.items.find(i => i.id === itemId);
+            if (!item) return;
+            document.getElementById('editItemSectionId').value = sectionId;
+            document.getElementById('editItemId').value = itemId;
+            document.getElementById('itemTitleInput').value = item.title || '';
+            document.getElementById('itemCategoryInput').value = item.category || '';
+            document.getElementById('itemImageInput').value = item.image || '';
+            document.getElementById('itemLinkInput').value = item.link || '';
+            document.getElementById('itemIconInput').value = item.icon || 'fa-solid fa-star';
+            document.getElementById('itemEduPeriodInput').value = item.period || '';
+            document.getElementById('itemEduSubtitleInput').value = item.subtitle || '';
+            document.getElementById('itemExpCompanyInput').value = item.company || '';
+            document.getElementById('itemDescInput').value = item.desc || '';
+            document.getElementById('itemModalTitle').innerText = 'Edit Item';
+            document.getElementById('labelTitleInput').innerText = 'Judul';
+            document.getElementById('labelDescInput').innerText = 'Deskripsi';
+            document.getElementById('itemEditModal').classList.remove('hidden');
+        };
+
+        window.closeItemModal = function() {
+            document.getElementById('itemEditModal').classList.add('hidden');
+        };
+
+        window.handleSaveItem = function(e) {
+            e.preventDefault();
+            const sectionId = document.getElementById('editItemSectionId').value;
+            const itemId = document.getElementById('editItemId').value;
+            const sec = state.sections.find(s => s.id === sectionId);
+            if (!sec) return;
+
+            const title = document.getElementById('itemTitleInput').value.trim();
+            if (!title) return;
+
+            const newItem = {
+                id: itemId || generateId(),
+                title: title,
+                category: document.getElementById('itemCategoryInput').value.trim(),
+                image: document.getElementById('itemImageInput').value.trim(),
+                link: document.getElementById('itemLinkInput').value.trim(),
+                icon: document.getElementById('itemIconInput').value.trim() || 'fa-solid fa-star',
+                period: document.getElementById('itemEduPeriodInput').value.trim(),
+                subtitle: document.getElementById('itemEduSubtitleInput').value.trim(),
+                company: document.getElementById('itemExpCompanyInput').value.trim(),
+                desc: document.getElementById('itemDescInput').value.trim()
+            };
+
+            if (itemId) {
+                // Edit existing
+                const idx = sec.items.findIndex(i => i.id === itemId);
+                if (idx !== -1) sec.items[idx] = newItem;
+            } else {
+                // Add new
+                sec.items.push(newItem);
+            }
+            saveState();
+            renderAllUI();
+            closeItemModal();
+            showToast('Item berhasil disimpan!');
+        };
+
+        window.deleteItemFromSection = function(sectionId, itemId) {
+            if (!confirm('Hapus item ini?')) return;
+            const sec = state.sections.find(s => s.id === sectionId);
+            if (!sec) return;
+            sec.items = sec.items.filter(i => i.id !== itemId);
+            saveState();
+            renderAllUI();
+            showToast('Item dihapus.');
+        };
+
+        // --------------------------------------------------------------
+        //  CHANGE CREDENTIALS (with PIN)
+        // --------------------------------------------------------------
+        window.openChangeCredsModal = function() {
+            document.getElementById('changePin').value = '';
+            document.getElementById('changeNewUser').value = '';
+            document.getElementById('changeNewPass').value = '';
+            document.getElementById('changeCredsError').classList.add('hidden');
+            document.getElementById('changeCredsModal').classList.remove('hidden');
+        };
+
+        window.closeChangeCredsModal = function() {
+            document.getElementById('changeCredsModal').classList.add('hidden');
+        };
+
+        window.handleChangeCreds = function(e) {
+            e.preventDefault();
+            const pin = document.getElementById('changePin').value.trim();
+            const newUser = document.getElementById('changeNewUser').value.trim();
+            const newPass = document.getElementById('changeNewPass').value.trim();
+            const errorEl = document.getElementById('changeCredsError');
+
+            if (pin !== PIN_CODE) {
+                errorEl.innerText = 'PIN salah! Gunakan: ICTMB2';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+            if (!newUser || !newPass) {
+                errorEl.innerText = 'Username dan password tidak boleh kosong.';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+            state.adminCreds = { username: newUser, password: newPass };
+            saveState();
+            closeChangeCredsModal();
+            showToast('Kredensial admin berhasil diubah!');
+        };
+
+        // --------------------------------------------------------------
+        //  RESET TOTAL — hapus semua data (sections kosong, profile tetap default)
+        // --------------------------------------------------------------
+        window.resetDataToDefault = async function() {
+            if (!confirm('RESET TOTAL: Semua bagian dan item akan dihapus secara permanen. Lanjutkan?')) return;
+
+            // Hapus semua data dari Firebase jika tersedia
+            if (window.deleteFirestoreDoc && window.syncFirestoreDoc) {
+                try {
+                    // Hapus semua section dan item
+                    for (const sec of state.sections) {
+                        for (const item of sec.items) {
+                            await window.deleteFirestoreDoc('items', item.id);
+                        }
+                        await window.deleteFirestoreDoc('sections', sec.id);
+                    }
+                    await window.deleteFirestoreDoc('profile', 'main');
+                } catch (e) { /* ignore */ }
+            }
+
+            // Kosongkan sections
+            state.sections = [];
+            // Profile tetap default (atau bisa juga di-reset?)
+            // Kita akan reset profile ke default juga? User request: "everything, including default additions, are deleted also"
+            // Jadi kita reset profile ke default.
+            state.profile = { ...DEFAULT_PROFILE };
+            // Admin creds tetap (jangan direset)
+
+            saveState();
+            renderAllUI();
+            showToast('Data berhasil di-reset total! Semua bagian dan item dihapus.');
+        };
+
+        // --------------------------------------------------------------
+        //  TAB SWITCH
+        // --------------------------------------------------------------
+        window.switchAdminTab = function(tab) {
+            const tabs = ['sections', 'profile'];
+            tabs.forEach(t => {
+                const content = document.getElementById('tabContent' + t.charAt(0).toUpperCase() + t.slice(1));
+                const btn = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
+                if (content) content.classList.add('hidden');
+                if (btn) {
+                    btn.className =
+                        'w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-futura-bold text-purpleDark hover:bg-lavender-100 transition-all whitespace-nowrap';
+                }
+            });
+            const activeContent = document.getElementById('tabContent' + tab.charAt(0).toUpperCase() + tab.slice(1));
+            const activeBtn = document.getElementById('tabBtn' + tab.charAt(0).toUpperCase() + tab.slice(1));
+            if (activeContent) activeContent.classList.remove('hidden');
+            if (activeBtn) {
+                activeBtn.className =
+                    'w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-futura-bold bg-lavender-500 text-white shadow-sm transition-all whitespace-nowrap';
+            }
+        };
+
+        // --------------------------------------------------------------
+        //  PROFILE SAVE
+        // --------------------------------------------------------------
+        window.handleSaveProfile = function(e) {
+            e.preventDefault();
+            const updatedProfile = {
+                name: document.getElementById('editName').value,
+                badge: document.getElementById('editBadge').value,
+                avatar: document.getElementById('editAvatar').value,
+                bio: document.getElementById('editBio').value,
+                about: document.getElementById('editAbout').value,
+                location: document.getElementById('editLocation').value,
+                status: document.getElementById('editStatus').value,
+                socialInsta: document.getElementById('editInsta').value,
+                socialLinkedin: document.getElementById('editLinkedin').value,
+                socialGithub: document.getElementById('editGithub').value,
+                socialTwitter: document.getElementById('editTwitter').value
+            };
+            state.profile = updatedProfile;
+            saveState();
+            renderProfileData();
+            showToast('Profil & Link berhasil diperbarui!');
+            if (window.syncFirestoreDoc) {
+                window.syncFirestoreDoc('profile', 'main', updatedProfile);
+            }
+        };
+
+        function populateProfileForm() {
+            const p = state.profile;
+            document.getElementById('editName').value = p.name || '';
+            document.getElementById('editBadge').value = p.badge || '';
+            document.getElementById('editAvatar').value = p.avatar || '';
+            document.getElementById('editBio').value = p.bio || '';
+            document.getElementById('editAbout').value = p.about || '';
+            document.getElementById('editLocation').value = p.location || '';
+            document.getElementById('editStatus').value = p.status || '';
+            document.getElementById('editInsta').value = p.socialInsta || '';
+            document.getElementById('editLinkedin').value = p.socialLinkedin || '';
+            document.getElementById('editGithub').value = p.socialGithub || '';
+            document.getElementById('editTwitter').value = p.socialTwitter || '';
+        }
+
+        // --------------------------------------------------------------
+        //  CONTACT FORM
+        // --------------------------------------------------------------
+        window.handleFormSubmit = function(e) {
+            e.preventDefault();
+            showToast('Pesan Anda berhasil terkirim!');
+            e.target.reset();
+        };
+
+        // --------------------------------------------------------------
+        //  NAV HIGHLIGHT
+        // --------------------------------------------------------------
+        const sectionsNav = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('header nav a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sectionsNav.forEach(section => {
+                const top = section.offsetTop - 100;
+                if (pageYOffset >= top) current = section.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('bg-lavender-200/60', 'text-purpleDark');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('bg-lavender-200/60', 'text-purpleDark');
+                }
+            });
+        });
+
+        // --------------------------------------------------------------
+        //  INIT
+        // --------------------------------------------------------------
+        renderAllUI();
+
+        // Cartwheel scroll event listeners
+        document.addEventListener('scroll', updateCartwheelEffect);
+        window.addEventListener('resize', updateCartwheelEffect);
+        // Re-run after dynamic content
+        setTimeout(updateCartwheelEffect, 300);
+
+        // Expose cartwheel scroll function for buttons
+        window.scrollCartwheel = function(dir) {
+            const containers = document.querySelectorAll('.cartwheel-container');
+            containers.forEach(container => {
+                const amt = 260;
+                const cur = container.scrollLeft;
+                container.scrollTo({ left: dir === 'next' ? cur + amt : cur - amt, behavior: 'smooth' });
+            });
+        };
+    </script>
+
+    <!-- ========== FIREBASE INTEGRATION (Opsional) ========== -->
+    <script type="module">
+        try {
+            const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js");
+            const { getAuth, signInAnonymously, signInWithCustomToken } = await import(
+                "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js");
+            const { getFirestore, collection, doc, onSnapshot, setDoc, deleteDoc } = await import(
+                "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js");
+
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'lavender-portfolio-app';
+            const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+                apiKey: "",
+                authDomain: "demo-portfolio.firebaseapp.com",
+                projectId: "demo-portfolio",
+                storageBucket: "demo-portfolio.appspot.com",
+                messagingSenderId: "123456789",
+                appId: "1:123456789:web:abcdef"
+            };
+
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            const db = getFirestore(app);
+
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                await signInWithCustomToken(auth, __initial_auth_token);
+            } else {
+                await signInAnonymously(auth);
+            }
+
+            function getPublicCollectionRef(colName) {
+                return collection(db, 'artifacts', appId, 'public', 'data', colName);
+            }
+
+            function getPublicDocRef(colName, docId) {
+                return doc(db, 'artifacts', appId, 'public', 'data', colName, docId);
+            }
+
+            window.syncFirestoreDoc = async function(colName, docId, data) {
+                try { await setDoc(getPublicDocRef(colName, docId), data); } catch (e) { /* ignore */ }
+            };
+
+            window.deleteFirestoreDoc = async function(colName, docId) {
+                try { await deleteDoc(getPublicDocRef(colName, docId)); } catch (e) { /* ignore */ }
+            };
+
+            // Listeners for sections and items - we'll just sync state on changes
+            // But we need to sync from firebase to local? For simplicity, we'll only push changes.
+            // We'll rely on local state as source of truth.
+
+        } catch (e) {
+            console.warn("Running in local offline mode:", e);
+        }
+    </script>
+
+</body>
+</html>
