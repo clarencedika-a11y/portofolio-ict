@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portofolio Profesional & Admin Manager</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lavender: { 50: '#FAF7FD', 100: '#F2E8FA', 200: '#E2D1F3', 300: '#CEB2EA', 400: '#B48ADF',
+                            500: '#9B64D4', 600: '#8246BF' },
+                        purpleDark: '#584175',
+                        purpleText: '#4A3563',
+                        purpleSoftBg: '#7A5B9E',
+                        darkBg: '#1a1a2e',
+                        darkSurface: '#2d2b55',
+                        darkBorder: '#4a3a6e',
+                        darkText: '#e0d4f5',
+                        darkLavender: '#b48adf',
+                    },
+                    fontFamily: { futura: ['Futura PT', 'Futura', 'Trebuchet MS', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* ... (all styles unchanged) ... */
+        body {
+            font-family: 'Futura PT', 'Futura', 'Trebuchet MS', sans-serif;
+            background-color: #FAF7FD;
+            color: #4A3563;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .font-futura-bold { font-family: 'Futura PT', 'Futura', sans-serif; font-weight: 700; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        html.dark body { background-color: #1a1a2e; color: #e0d4f5; }
+        html.dark .bg-lavender-50 { background-color: #1a1a2e !important; }
+        html.dark .bg-white { background-color: #2d2b55 !important; }
+        html.dark .text-purpleDark { color: #d8b4fe !important; }
+        html.dark .text-purpleDark\/80 { color: #c4b0e6 !important; }
+        html.dark .text-purpleDark\/70 { color: #b8a3d9 !important; }
+        html.dark .text-purpleDark\/50 { color: #a08ac2 !important; }
+        html.dark .border-lavender-200 { border-color: #4a3a6e !important; }
+        html.dark .border-lavender-200\/80 { border-color: #4a3a6e !important; }
+        html.dark .border-lavender-200\/70 { border-color: #4a3a6e !important; }
+        html.dark .bg-lavender-100 { background-color: #3a2a5e !important; }
+        html.dark .bg-lavender-100\/70 { background-color: #3a2a5e !important; }
+        html.dark .bg-lavender-200 { background-color: #4a3a6e !important; }
+        html.dark .bg-lavender-200\/60 { background-color: #4a3a6e !important; }
+        html.dark .bg-lavender-50\/90 { background-color: #1a1a2e !important; }
+        html.dark .backdrop-blur-md { backdrop-filter: blur(8px); }
+        html.dark .soft-shadow { box-shadow: 0 10px 28px -6px rgba(0,0,0,0.5), 0 4px 10px -2px rgba(0,0,0,0.3); }
+        html.dark .soft-shadow-hover:hover { box-shadow: 0 16px 32px -4px rgba(0,0,0,0.6), 0 6px 14px -2px rgba(0,0,0,0.4); }
+        html.dark .bg-lavender-500 { background-color: #b48adf !important; }
+        html.dark .bg-lavender-500:hover { background-color: #9b64d4 !important; }
+        html.dark .text-lavender-600 { color: #b48adf !important; }
+        html.dark .bg-purpleDark { background-color: #4a3a6e !important; }
+        html.dark .bg-rose-100 { background-color: #6e3a4a !important; }
+        html.dark .text-rose-600 { color: #f8a0b0 !important; }
+        html.dark .hover\:bg-lavender-200\/60:hover { background-color: #4a3a6e !important; }
+        html.dark .hover\:bg-lavender-200:hover { background-color: #4a3a6e !important; }
+        html.dark .folder-card { background: #2d2b55; border-color: #4a3a6e; }
+        html.dark .folder-body { background: #2d2b55; }
+        html.dark .folder-tab { background: #b48adf; }
+        html.dark .folder-tab::after { border-left-color: #b48adf; }
+        html.dark .pagination-btn { background: #2d2b55; border-color: #4a3a6e; color: #d8b4fe; }
+        html.dark .pagination-btn:hover:not(:disabled) { background: #b48adf; color: #1a1a2e; }
+        html.dark .bg-lavender-300 { background-color: #9b64d4 !important; }
+        html.dark .ring-lavender-500 { --tw-ring-color: #b48adf !important; }
+
+        .folder-card {
+            background: white;
+            border-radius: 6px 6px 14px 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(155,100,212,0.12);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            border: 1px solid rgba(226,209,243,0.5);
+            cursor: default;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .folder-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(155,100,212,0.20); }
+        .folder-tab {
+            display: inline-block;
+            padding: 3px 14px 4px 14px;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: white;
+            background: #9B64D4;
+            border-radius: 0 0 6px 6px;
+            align-self: flex-start;
+            margin-left: 14px;
+            margin-top: 0;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 2px 6px rgba(155,100,212,0.25);
+            max-width: calc(100% - 28px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .folder-tab::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-top: 12px solid transparent;
+            border-bottom: 0px solid transparent;
+            border-left: 8px solid #9B64D4;
+        }
+        .folder-body {
+            flex: 1;
+            padding: 10px 12px 12px 12px;
+            border-top: 2px solid #9B64D4;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 120px;
+            border-radius: 0 0 14px 14px;
+            position: relative;
+            z-index: 1;
+        }
+        .folder-body .folder-image {
+            width: 100%;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #F2E8FA;
+            flex-shrink: 0;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .folder-body .folder-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .folder-card:hover .folder-image img { transform: scale(1.02); }
+        .folder-body .folder-title {
+            font-weight: 700;
+            font-size: 13px;
+            color: #4A3563;
+            margin-top: 2px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        html.dark .folder-body .folder-title { color: #d8b4fe; }
+        .folder-body .folder-desc {
+            font-size: 10px;
+            color: rgba(74,53,99,0.65);
+            margin-top: 2px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex: 1;
+        }
+        html.dark .folder-body .folder-desc { color: #c4b0e6; }
+        .folder-body .folder-link {
+            margin-top: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #9B64D4;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            align-self: flex-start;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        .folder-body .folder-link:hover { color: #8246BF; }
+
+        .pagination-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+            padding: 6px 0;
+        }
+        .pagination-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid #E2D1F3;
+            background: white;
+            color: #584175;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(155,100,212,0.08);
+            user-select: none;
+        }
+        .pagination-btn:hover:not(:disabled) { background: #9B64D4; color: white; border-color: #9B64D4; box-shadow: 0 4px 12px rgba(155,100,212,0.25); }
+        .pagination-btn:disabled { opacity: 0.35; cursor: not-allowed; box-shadow: none; }
+        .pagination-indicator {
+            font-size: 12px;
+            font-weight: 700;
+            color: #584175;
+            min-width: 40px;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+        html.dark .pagination-indicator { color: #d8b4fe; }
+
+        .section-template-icon-grid .hobby-card { cursor: pointer; transition: all 0.2s; }
+        .section-template-icon-grid .hobby-card .detail-reveal { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; }
+        .section-template-icon-grid .hobby-card.active .detail-reveal { max-height: 100px; opacity: 1; }
+
+        .soft-shadow { box-shadow: 0 10px 28px -6px rgba(155,100,212,0.15), 0 4px 10px -2px rgba(88,65,117,0.06); }
+        .soft-shadow-hover:hover { box-shadow: 0 16px 32px -4px rgba(155,100,212,0.25), 0 6px 14px -2px rgba(88,65,117,0.1); transform: translateY(-3px); }
+
+        .theme-toggle { cursor: pointer; transition: all 0.3s; background: transparent; border: none; font-size: 1rem; color: inherit; }
+        .theme-toggle:hover { transform: rotate(20deg); }
+
+        /* EASTER EGG MODAL */
+        .easter-egg-modal { background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
+        .easter-egg-modal .modal-box {
+            background: #2d2b55;
+            border: 2px solid #b48adf;
+            border-radius: 24px;
+            padding: 28px 24px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .easter-egg-modal .modal-box .close-btn { position: absolute; top: 12px; right: 16px; font-size: 22px; cursor: pointer; color: #b48adf; transition: color 0.2s; background: none; border: none; }
+        .easter-egg-modal .modal-box .close-btn:hover { color: white; }
+        .easter-egg-modal .modal-box h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; }
+        .easter-egg-modal .modal-box p { font-size: 1rem; margin-bottom: 20px; color: #d8b4fe; }
+        .easter-egg-modal .modal-box .btn-yes { background: #b48adf; border: none; padding: 10px 32px; border-radius: 40px; font-weight: 700; color: #1a1a2e; cursor: pointer; transition: background 0.2s; margin-right: 12px; }
+        .easter-egg-modal .modal-box .btn-yes:hover { background: #9b64d4; }
+        .easter-egg-modal .modal-box .btn-no { background: transparent; border: 2px solid #b48adf; padding: 10px 28px; border-radius: 40px; font-weight: 700; color: #b48adf; cursor: pointer; transition: all 0.2s; }
+        .easter-egg-modal .modal-box .btn-no:hover { background: #b48adf; color: #1a1a2e; }
+
+        /* DINO GAME */
+        #dinoGameContainer {
+            background: #1a1a2e;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #b48adf;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            max-width: 600px;
+            margin: 0 auto;
+            user-select: none;
+        }
+        #dinoGameContainer canvas { display: block; width: 100%; height: auto; background: #1a1a2e; cursor: pointer; touch-action: none; }
+        #dinoGameContainer .game-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(4px);
+            color: white;
+            font-family: 'Futura PT', sans-serif;
+            font-weight: 700;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            padding: 16px;
+            overflow-y: auto;
+        }
+        #dinoGameContainer .game-overlay.show { opacity: 1; pointer-events: auto; }
+        #dinoGameContainer .game-overlay h2 { font-size: 1.8rem; margin-bottom: 2px; }
+        #dinoGameContainer .game-overlay .sub-score { font-size: 0.9rem; opacity: 0.7; margin-bottom: 6px; }
+        #dinoGameContainer .game-overlay .shop-section {
+            width: 100%;
+            max-width: 420px;
+            margin: 8px 0 12px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 10px 12px;
+            border: 1px solid rgba(180,138,223,0.2);
+        }
+        #dinoGameContainer .game-overlay .shop-section .shop-title { font-size: 0.75rem; opacity: 0.6; margin-bottom: 8px; letter-spacing: 1px; }
+        #dinoGameContainer .game-overlay .shop-items { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+        #dinoGameContainer .game-overlay .shop-item {
+            background: rgba(180,138,223,0.12);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 6px 12px 6px 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #d8b4fe;
+            min-width: 70px;
+            justify-content: center;
+        }
+        #dinoGameContainer .game-overlay .shop-item:hover { background: rgba(180,138,223,0.25); }
+        #dinoGameContainer .game-overlay .shop-item.owned { border-color: #b48adf; background: rgba(180,138,223,0.15); }
+        #dinoGameContainer .game-overlay .shop-item.equipped { border-color: #fbbf24; background: rgba(251,191,36,0.15); }
+        #dinoGameContainer .game-overlay .shop-item .price { font-size: 0.6rem; opacity: 0.6; margin-left: 2px; }
+        #dinoGameContainer .game-overlay .shop-item .check { color: #4ade80; font-size: 0.7rem; }
+        #dinoGameContainer .game-overlay .btn-continue {
+            background: #b48adf;
+            border: none;
+            padding: 10px 36px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1a1a2e;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 4px;
+        }
+        #dinoGameContainer .game-overlay .btn-continue:hover { background: #9b64d4; }
+        #dinoGameContainer .game-overlay .reset-hint { font-size: 0.6rem; opacity: 0.3; margin-top: 6px; }
+
+        .dino-score {
+            position: absolute;
+            top: 10px;
+            right: 16px;
+            color: #d8b4fe;
+            font-family: 'Futura PT', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            z-index: 5;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+        .dino-hat-indicator {
+            position: absolute;
+            top: 10px;
+            left: 16px;
+            color: #d8b4fe;
+            font-family: 'Futura PT', sans-serif;
+            font-size: 0.7rem;
+            z-index: 5;
+            opacity: 0.5;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .dino-hint {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.2);
+            font-size: 0.6rem;
+            font-family: 'Futura PT', sans-serif;
+            z-index: 5;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        html.dark .dino-hint { color: rgba(255,255,255,0.15); }
+
+        .reset-creds-link { color: #b48adf; cursor: pointer; font-size: 0.65rem; text-decoration: underline; opacity: 0.6; transition: opacity 0.2s; background: none; border: none; padding: 0; }
+        .reset-creds-link:hover { opacity: 1; }
+    </style>
+</head>
+<body class="bg-lavender-50 text-purpleText antialiased selection:bg-lavender-200 min-h-screen flex flex-col">
+
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-lavender-50/90 border-b border-lavender-200/80 shadow-sm transition-colors">
+        <nav class="max-w-md md:max-w-4xl mx-auto px-3 py-2.5">
+            <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <span id="initialsDisplay" class="text-base font-futura-bold tracking-wider text-purpleDark flex items-center gap-1.5 cursor-pointer select-none">
+                        <span class="w-2.5 h-2.5 rounded-full bg-lavender-500 inline-block"></span> ALB.
+                    </span>
+                    <button id="themeToggle" class="theme-toggle ml-1 text-purpleDark" title="Mode Gelap/Terang">
+                        <i class="fa-solid fa-moon" id="themeIcon"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center space-x-1 overflow-x-auto no-scrollbar py-1 px-1">
+                    <a href="#beranda" class="px-2.5 py-1 text-xs font-futura-bold text-purpleDark hover:bg-lavender-200/60 rounded-full transition-all whitespace-nowrap active-nav">Beranda</a>
+                    <a href="#tentang" class="px-2.5 py-1 text-xs font-futura-bold text-purpleDark/80 hover:bg-lavender-200/60 rounded-full transition-all whitespace-nowrap">Tentang Saya</a>
+                    <div id="dynamicNavLinks" class="flex items-center space-x-1"></div>
+                    <a href="#kontak" class="px-3 py-1 text-xs font-futura-bold bg-lavender-500 text-white rounded-full transition-all whitespace-nowrap shadow-sm hover:bg-lavender-600">Kontak</a>
+                </div>
+
+                <button id="adminTriggerBtn" onclick="toggleAdminModal()" class="shrink-0 w-8 h-8 rounded-full bg-lavender-200/80 hover:bg-lavender-300 text-purpleDark flex items-center justify-center text-xs transition-all soft-shadow" title="Kelola Admin Backend">
+                    <i class="fa-solid fa-lock" id="adminLockIcon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-md md:max-w-4xl mx-auto px-4 pt-6 pb-16 space-y-12 flex-grow w-full">
+        <section id="beranda" class="pt-2 text-center space-y-4">
+            <div class="relative inline-block">
+                <div class="w-28 h-28 md:w-36 md:h-36 mx-auto rounded-full p-1 bg-gradient-to-tr from-lavender-300 via-lavender-400 to-lavender-500 soft-shadow">
+                    <img id="displayAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400" alt="Profil" onerror="this.onerror=null;this.src='https://placehold.co/400x400/E2D1F3/584175?text=Foto+Profil'" class="w-full h-full object-cover rounded-full border-2 border-white" />
+                </div>
+                <span class="absolute bottom-1 right-1 bg-emerald-400 text-white p-1 rounded-full text-xs border-2 border-white flex items-center justify-center">
+                    <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
+                </span>
+            </div>
+
+            <div class="space-y-1.5">
+                <span id="displayBadge" class="inline-block px-3 py-1 bg-lavender-200/70 text-purpleDark text-[11px] font-futura-bold rounded-full tracking-wide">MOBILE UI/UX DESIGNER</span>
+                <h1 class="text-2xl md:text-4xl font-futura-bold text-purpleDark tracking-tight">Halo, Saya <span id="displayName" class="text-lavender-600">Alisha Bella</span></h1>
+                <p id="displayBio" class="text-purpleDark/80 text-xs md:text-sm max-w-md mx-auto leading-relaxed">Merancang pengalaman digital mobile yang estetis, lembut, dan intuitif dengan pendekatan berpusat pada kenyamanan pengguna.</p>
+            </div>
+
+            <div class="flex items-center justify-center gap-2.5 pt-1">
+                <a href="#dynamic-sections" class="px-5 py-2.5 bg-purpleDark text-white font-futura-bold text-xs rounded-xl soft-shadow hover:bg-purpleDark/90 transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-compass text-lavender-300"></i> Portofolio
+                </a>
+                <a href="#kontak" class="px-5 py-2.5 bg-white text-purpleDark border border-lavender-300 font-futura-bold text-xs rounded-xl soft-shadow hover:bg-lavender-100 transition-all">Hubungi Saya</a>
+            </div>
+        </section>
+
+        <section id="tentang" class="space-y-3">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-5 bg-lavender-500 rounded-full"></div>
+                <h2 class="text-xl font-futura-bold text-purpleDark">Tentang Saya</h2>
+            </div>
+            <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl border border-lavender-200/70 soft-shadow space-y-3">
+                <p id="displayAbout" class="text-purpleDark/90 text-xs leading-relaxed">Desainer UI/UX dengan fokus khusus pada mobile app interfaces dan skema warna harmonis. Berpengalaman 4+ tahun menciptakan desain yang elegan dan bernavigasi ramah ibu jari (thumb-friendly).</p>
+                <div class="grid grid-cols-2 gap-2.5 pt-1 text-xs font-futura-bold">
+                    <div class="bg-lavender-100/70 p-2.5 rounded-xl border border-lavender-200/80 flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-lavender-600"></i>
+                        <span id="displayLocation" class="text-purpleDark">Jakarta, ID</span>
+                    </div>
+                    <div class="bg-lavender-100/70 p-2.5 rounded-xl border border-lavender-200/80 flex items-center gap-2">
+                        <i class="fa-solid fa-laptop-code text-lavender-600"></i>
+                        <span id="displayStatus" class="text-purpleDark">Open Project</span>
+                    </div>
+                </div>
+                <div class="bg-lavender-100/70 p-2.5 rounded-xl border border-lavender-200/80 flex items-center gap-2">
+                    <i class="fa-solid fa-cake-candles text-lavender-600"></i>
+                    <span id="displayBirthday" class="text-purpleDark">Belum diisi</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- DYNAMIC SECTIONS -->
+        <section id="dynamic-sections" class="space-y-12"></section>
+
+        <section id="kontak" class="space-y-3">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-5 bg-lavender-500 rounded-full"></div>
+                <h2 class="text-xl font-futura-bold text-purpleDark">Hubungi Saya</h2>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-lavender-200/80 soft-shadow">
+                <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-2.5">
+                    <div><label class="block text-[11px] font-futura-bold text-purpleDark mb-0.5">Nama Lengkap</label><input type="text" name="name" required placeholder="Nama Anda" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark" /></div>
+                    <div><label class="block text-[11px] font-futura-bold text-purpleDark mb-0.5">Email</label><input type="email" name="email" required placeholder="nama@email.com" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark" /></div>
+                    <div><label class="block text-[11px] font-futura-bold text-purpleDark mb-0.5">Pesan</label><textarea name="message" rows="2.5" required placeholder="Tuliskan ide proyek Anda..." class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark"></textarea></div>
+                    <button type="submit" class="w-full py-2.5 bg-lavender-500 hover:bg-lavender-600 text-white font-futura-bold text-xs rounded-xl soft-shadow transition-all">Kirim Pesan <i class="fa-solid fa-paper-plane ml-1"></i></button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-lavender-200/80 py-6 text-center space-y-3 font-futura-bold mt-auto">
+        <div id="footerSocials" class="flex justify-center gap-3 text-purpleDark">
+            <a href="https://instagram.com" target="_blank" id="socialInsta" class="w-8 h-8 rounded-full bg-lavender-100 hover:bg-lavender-500 hover:text-white flex items-center justify-center transition-all text-xs"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://linkedin.com" target="_blank" id="socialLinkedin" class="w-8 h-8 rounded-full bg-lavender-100 hover:bg-lavender-500 hover:text-white flex items-center justify-center transition-all text-xs"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com" target="_blank" id="socialGithub" class="w-8 h-8 rounded-full bg-lavender-100 hover:bg-lavender-500 hover:text-white flex items-center justify-center transition-all text-xs"><i class="fa-brands fa-github"></i></a>
+            <a href="https://x.com" target="_blank" id="socialTwitter" class="w-8 h-8 rounded-full bg-lavender-100 hover:bg-lavender-500 hover:text-white flex items-center justify-center transition-all text-xs"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="mailto:alisha@example.com" id="socialEmail" class="w-8 h-8 rounded-full bg-lavender-100 hover:bg-lavender-500 hover:text-white flex items-center justify-center transition-all text-xs"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <div class="text-xs text-purpleDark/80">
+            <p>© 2026 <span id="footerName">Alisha Bella</span>. All rights reserved.</p>
+            <p class="text-[10px] text-purpleDark/50 mt-0.5">Soft Lavender & Futura Mobile CMS Portfolio</p>
+        </div>
+    </footer>
+
+    <!-- ========== MODALS ========== -->
+    <!-- Admin Login -->
+    <div id="adminLoginModal" class="fixed inset-0 z-50 bg-purpleDark/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-sm w-full border border-lavender-200 soft-shadow space-y-4 relative">
+            <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 text-purpleDark/50 hover:text-purpleDark"><i class="fa-solid fa-xmark text-base"></i></button>
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 bg-lavender-100 rounded-2xl flex items-center justify-center text-lavender-600 mx-auto text-xl"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3 class="text-lg font-futura-bold text-purpleDark">Login Admin Backend</h3>
+                <p class="text-[11px] text-purpleDark/70">Masukkan kredensial administrator.</p>
+            </div>
+            <form onsubmit="handleAdminLogin(event)" class="space-y-3">
+                <div><label class="block text-[11px] font-futura-bold text-purpleDark mb-1">Username Admin</label><input type="text" id="adminUser" required placeholder="Masukkan Username" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark" /></div>
+                <div><label class="block text-[11px] font-futura-bold text-purpleDark mb-1">Password</label><input type="password" id="adminPass" required placeholder="••••••••" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark" /></div>
+                <div id="loginErrorMsg" class="text-[11px] text-rose-500 font-futura-bold hidden text-center"></div>
+                <button type="submit" class="w-full py-2.5 bg-lavender-500 hover:bg-lavender-600 text-white font-futura-bold text-xs rounded-xl soft-shadow transition-all">Masuk ke Dashboard</button>
+                <div class="text-center pt-1"><button type="button" onclick="showResetCreds()" class="reset-creds-link">Lupa kredensial? Reset dengan PIN</button></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Reset Creds -->
+    <div id="resetCredsModal" class="fixed inset-0 z-50 bg-purpleDark/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-sm w-full border border-lavender-200 soft-shadow space-y-4 relative">
+            <button onclick="closeResetCredsModal()" class="absolute top-4 right-4 text-purpleDark/50 hover:text-purpleDark"><i class="fa-solid fa-xmark text-base"></i></button>
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 bg-lavender-100 rounded-2xl flex items-center justify-center text-lavender-600 mx-auto text-xl"><i class="fa-solid fa-key"></i></div>
+                <h3 class="text-lg font-futura-bold text-purpleDark">Reset Kredensial</h3>
+                <p class="text-[11px] text-purpleDark/70">Masukkan PIN untuk reset ke default (admin/admin123).</p>
+            </div>
+            <form onsubmit="handleResetCreds(event)" class="space-y-3">
+                <div><label class="block text-[11px] font-futura-bold text-purpleDark mb-1">PIN</label><input type="password" id="resetPinInput" required placeholder="Masukkan PIN" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark" /></div>
+                <div id="resetCredsError" class="text-[11px] text-rose-500 font-futura-bold hidden text-center"></div>
+                <button type="submit" class="w-full py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-futura-bold text-xs rounded-xl soft-shadow transition-all">Reset Kredensial</button>
+                <button type="button" onclick="closeResetCredsModal()" class="w-full py-2 text-xs text-purpleDark/50 hover:text-purpleDark transition-all">Batal</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanelModal" class="fixed inset-0 z-50 bg-lavender-50 hidden flex flex-col w-screen h-screen overflow-hidden">
+        <header class="bg-white border-b border-lavender-200 px-6 py-4 flex items-center justify-between shrink-0 shadow-sm">
+            <div class="flex items-center gap-3">
+                <span class="p-2.5 rounded-2xl bg-lavender-500 text-white text-lg shadow-sm"><i class="fa-solid fa-sliders"></i></span>
+                <div><h2 class="font-futura-bold text-purpleDark text-lg md:text-xl">CMS Backend Manager</h2><p class="text-xs text-purpleDark/60">Kelola seluruh bagian portofolio secara dinamis</p></div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="openChangeCredsModal()" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-purpleDark bg-lavender-100 hover:bg-lavender-200 border border-lavender-200 font-futura-bold rounded-xl transition-all"><i class="fa-solid fa-key"></i> Ubah Kredensial</button>
+                <button onclick="openChangePinModal()" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-purpleDark bg-lavender-100 hover:bg-lavender-200 border border-lavender-200 font-futura-bold rounded-xl transition-all"><i class="fa-solid fa-shield"></i> Ganti PIN</button>
+                <button onclick="resetDataToDefault()" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200 font-futura-bold rounded-xl transition-all"><i class="fa-solid fa-rotate-left"></i> Reset Total</button>
+                <button onclick="logoutAdmin()" class="px-3 py-1.5 bg-rose-500 hover:bg-rose-600 text-white font-futura-bold text-xs rounded-xl transition-all shadow-sm"><i class="fa-solid fa-right-from-bracket mr-1"></i> Logout</button>
+                <button onclick="closeAdminPanel()" class="w-9 h-9 bg-lavender-100 hover:bg-lavender-200 text-purpleDark rounded-xl flex items-center justify-center transition-all"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+        </header>
+        <div class="flex flex-col md:flex-row flex-grow overflow-hidden max-w-7xl mx-auto w-full p-4 md:p-6 gap-6">
+            <div class="w-full md:w-64 bg-white rounded-3xl p-3 border border-lavender-200 soft-shadow shrink-0 flex md:flex-col gap-1.5 overflow-x-auto no-scrollbar">
+                <button onclick="switchAdminTab('sections')" id="tabBtnSections" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-futura-bold bg-lavender-500 text-white shadow-sm transition-all whitespace-nowrap"><i class="fa-solid fa-layer-group text-sm"></i> Kelola Bagian</button>
+                <button onclick="switchAdminTab('profile')" id="tabBtnProfile" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-futura-bold text-purpleDark hover:bg-lavender-100 transition-all whitespace-nowrap"><i class="fa-solid fa-id-card text-sm"></i> Profil & Social</button>
+                <button onclick="switchAdminTab('inbox')" id="tabBtnInbox" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-futura-bold text-purpleDark hover:bg-lavender-100 transition-all whitespace-nowrap"><i class="fa-solid fa-inbox text-sm"></i> Inbox <span id="inboxBadge" class="ml-1 bg-rose-500 text-white text-[10px] px-2 py-0.5 rounded-full hidden">0</span></button>
+                <button onclick="openChangePinModal()" class="md:hidden w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-futura-bold text-purpleDark hover:bg-lavender-100 transition-all whitespace-nowrap"><i class="fa-solid fa-shield text-sm"></i> Ganti PIN</button>
+                <button onclick="resetDataToDefault()" class="md:hidden w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-futura-bold text-rose-600 hover:bg-rose-50 transition-all whitespace-nowrap"><i class="fa-solid fa-rotate-left text-sm"></i> Reset Total</button>
+                <div class="hidden md:block mt-auto pt-4 border-t border-lavender-100 text-center"><p class="text-[10px] text-purpleDark/50 mt-1">Status: Offline Mode</p></div>
+            </div>
+
+            <div class="flex-grow bg-white rounded-3xl p-5 md:p-6 border border-lavender-200 soft-shadow overflow-y-auto no-scrollbar">
+                <div id="tabContentSections" class="space-y-4">
+                    <div class="flex items-center justify-between pb-3 border-b border-lavender-100">
+                        <div><h3 class="font-futura-bold text-purpleDark text-base">Kelola Bagian</h3><p class="text-xs text-purpleDark/60">Tambah, hapus, ubah nama, pilih template, dan kelola item</p></div>
+                        <button onclick="openAddSectionModal()" class="px-4 py-2 bg-lavender-500 text-white rounded-xl text-xs font-futura-bold hover:bg-lavender-600 flex items-center gap-1.5 shadow-sm transition-all"><i class="fa-solid fa-plus"></i> Tambah Bagian</button>
+                    </div>
+                    <div id="adminSectionsList" class="space-y-4"></div>
+                </div>
+
+                <div id="tabContentProfile" class="space-y-4 hidden">
+                    <div class="pb-3 border-b border-lavender-100"><h3 class="font-futura-bold text-purpleDark text-base">Pengaturan Profil & Media Sosial</h3><p class="text-xs text-purpleDark/60">Perbarui identitas header, bio, tentang saya, dan link kontak</p></div>
+                    <form onsubmit="handleSaveProfile(event)" class="space-y-4 max-w-2xl">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Nama Lengkap</label><input type="text" id="editName" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                            <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Badge Role</label><input type="text" id="editBadge" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                        </div>
+                        <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">URL Foto Profil</label><input type="url" id="editAvatar" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                        <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Ringkasan Bio</label><textarea id="editBio" rows="2" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark"></textarea></div>
+                        <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Teks Tentang Saya</label><textarea id="editAbout" rows="3" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark"></textarea></div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Lokasi</label><input type="text" id="editLocation" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                            <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Status Pekerjaan</label><input type="text" id="editStatus" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                        </div>
+                        <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Tanggal Lahir</label><input type="date" id="editBirthday" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                        <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Inisial (header)</label><input type="text" id="editInitials" maxlength="6" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                        <div class="pt-3 border-t border-lavender-100 space-y-3">
+                            <span class="text-xs font-futura-bold text-purpleDark block">Link Media Sosial Footer</span>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div><label class="block text-[10px] text-purpleDark/70 mb-0.5">Instagram</label><input type="url" id="editInsta" placeholder="https://instagram.com/username" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                                <div><label class="block text-[10px] text-purpleDark/70 mb-0.5">LinkedIn</label><input type="url" id="editLinkedin" placeholder="https://linkedin.com/in/username" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                                <div><label class="block text-[10px] text-purpleDark/70 mb-0.5">GitHub</label><input type="url" id="editGithub" placeholder="https://github.com/username" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                                <div><label class="block text-[10px] text-purpleDark/70 mb-0.5">Twitter / X</label><input type="url" id="editTwitter" placeholder="https://x.com/username" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                            </div>
+                        </div>
+                        <button type="submit" class="px-6 py-2.5 bg-purpleDark text-white font-futura-bold text-xs rounded-xl hover:bg-purpleDark/90 transition-all shadow-sm"><i class="fa-solid fa-floppy-disk mr-1"></i> Simpan Perubahan Profil</button>
+                    </form>
+                </div>
+
+                <div id="tabContentInbox" class="space-y-4 hidden">
+                    <div class="pb-3 border-b border-lavender-100"><h3 class="font-futura-bold text-purpleDark text-base">Pesan Masuk</h3><p class="text-xs text-purpleDark/60">Semua pesan dari formulir kontak tersimpan di sini</p></div>
+                    <div id="inboxList" class="space-y-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Section -->
+    <div id="addSectionModal" class="fixed inset-0 z-50 bg-purpleDark/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full border border-lavender-200 soft-shadow space-y-4 relative">
+            <button onclick="closeAddSectionModal()" class="absolute top-4 right-4 text-purpleDark/50 hover:text-purpleDark"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h4 class="font-futura-bold text-purpleDark text-base">Tambah Bagian Baru</h4>
+            <form onsubmit="handleAddSection(event)" class="space-y-3">
+                <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Nama Bagian</label><input type="text" id="newSectionName" required placeholder="Misal: Portofolio, Hobi, dll." class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Template</label>
+                    <select id="newSectionTemplate" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark">
+                        <option value="horizontal-carousel">Grid Folder (3×3 dengan paginasi)</option>
+                        <option value="vertical-list">Vertical List</option>
+                        <option value="icon-grid">Icon Grid</option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-2 pt-2">
+                    <button type="button" onclick="closeAddSectionModal()" class="w-1/3 py-2.5 bg-lavender-100 text-purpleDark font-futura-bold text-xs rounded-xl hover:bg-lavender-200 transition-all">Batal</button>
+                    <button type="submit" class="w-2/3 py-2.5 bg-lavender-500 hover:bg-lavender-600 text-white font-futura-bold text-xs rounded-xl transition-all shadow-sm">Tambah Bagian</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Change Creds -->
+    <div id="changeCredsModal" class="fixed inset-0 z-50 bg-purpleDark/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full border border-lavender-200 soft-shadow space-y-4 relative">
+            <button onclick="closeChangeCredsModal()" class="absolute top-4 right-4 text-purpleDark/50 hover:text-purpleDark"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 bg-lavender-100 rounded-2xl flex items-center justify-center text-lavender-600 mx-auto text-xl"><i class="fa-solid fa-key"></i></div>
+                <h3 class="text-lg font-futura-bold text-purpleDark">Ubah Kredensial Admin</h3>
+                <p class="text-[11px] text-purpleDark/70">Masukkan PIN untuk mengubah username dan password.</p>
+            </div>
+            <form onsubmit="handleChangeCreds(event)" class="space-y-3">
+                <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">PIN</label><input type="password" id="changePin" required placeholder="Masukkan PIN" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark" /></div>
+                <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Username Baru</label><input type="text" id="changeNewUser" required placeholder="Username baru" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Password Baru</label><input type="password" id="changeNewPass" required placeholder="Password baru" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                <div id="changeCredsError" class="text-[11px] text-rose-500 font-futura-bold hidden text-center"></div>
+                <button type="submit" class="w-full py-2.5 bg-lavender-500 hover:bg-lavender-600 text-white font-futura-bold text-xs rounded-xl soft-shadow transition-all">Simpan Kredensial</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Change PIN -->
+    <div id="changePinModal" class="fixed inset-0 z-50 bg-purpleDark/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full border border-lavender-200 soft-shadow space-y-4 relative">
+            <button onclick="closeChangePinModal()" class="absolute top-4 right-4 text-purpleDark/50 hover:text-purpleDark"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 bg-lavender-100 rounded-2xl flex items-center justify-center text-lavender-600 mx-auto text-xl"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3 class="text-lg font-futura-bold text-purpleDark">Ganti PIN Admin</h3>
+                <p class="text-[11px] text-purpleDark/70">Masukkan PIN lama dan PIN baru (6 digit).</p>
+            </div>
+            <form onsubmit="handleChangePinDirect(event)" class="space-y-3">
+                <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">PIN Lama</label><input type="password" id="oldPinDirect" required placeholder="PIN lama" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark" /></div>
+                <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">PIN Baru (6 digit)</label><input type="password" id="newPinDirect" required maxlength="6" placeholder="6 digit angka" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 focus:outline-none focus:ring-2 focus:ring-lavender-400 text-purpleDark" /></div>
+                <div id="changePinError" class="text-[11px] text-rose-500 font-futura-bold hidden text-center"></div>
+                <button type="submit" class="w-full py-2.5 bg-lavender-500 hover:bg-lavender-600 text-white font-futura-bold text-xs rounded-xl soft-shadow transition-all">Ganti PIN</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Item -->
+    <div id="itemEditModal" class="fixed inset-0 z-50 bg-purpleDark/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full border border-lavender-200 soft-shadow space-y-4 relative">
+            <button onclick="closeItemModal()" class="absolute top-4 right-4 text-purpleDark/50 hover:text-purpleDark"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h4 id="itemModalTitle" class="font-futura-bold text-purpleDark text-base">Tambah Item</h4>
+            <form onsubmit="handleSaveItem(event)" class="space-y-3">
+                <input type="hidden" id="editItemSectionId" /><input type="hidden" id="editItemId" />
+                <div><label class="block text-xs font-futura-bold text-purpleDark mb-1" id="labelTitleInput">Judul</label><input type="text" id="itemTitleInput" required class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                <div id="portfolioSpecificFields" class="space-y-3">
+                    <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Kategori</label><input type="text" id="itemCategoryInput" placeholder="Misal: UI/UX App" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                    <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">URL Gambar</label><input type="url" id="itemImageInput" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                    <div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Link Detail</label><input type="url" id="itemLinkInput" placeholder="https://..." class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div>
+                </div>
+                <div id="hobbySpecificFields" class="space-y-3 hidden"><div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Icon FontAwesome</label><input type="text" id="itemIconInput" placeholder="fa-solid fa-camera" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div></div>
+                <div id="educationSpecificFields" class="space-y-3 hidden"><div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Periode</label><input type="text" id="itemEduPeriodInput" placeholder="2018 - 2022" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div><div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Institusi</label><input type="text" id="itemEduSubtitleInput" placeholder="Nama institusi" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div></div>
+                <div id="experienceSpecificFields" class="space-y-3 hidden"><div><label class="block text-xs font-futura-bold text-purpleDark mb-1">Perusahaan</label><input type="text" id="itemExpCompanyInput" placeholder="Nama perusahaan" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark" /></div></div>
+                <div id="descFieldContainer"><label class="block text-xs font-futura-bold text-purpleDark mb-1" id="labelDescInput">Deskripsi</label><textarea id="itemDescInput" rows="2" class="w-full px-3 py-2 text-xs rounded-xl bg-lavender-50 border border-lavender-200 text-purpleDark"></textarea></div>
+                <div class="flex items-center gap-2 pt-2">
+                    <button type="button" onclick="closeItemModal()" class="w-1/3 py-2.5 bg-lavender-100 text-purpleDark font-futura-bold text-xs rounded-xl hover:bg-lavender-200 transition-all">Batal</button>
+                    <button type="submit" class="w-2/3 py-2.5 bg-lavender-500 hover:bg-lavender-600 text-white font-futura-bold text-xs rounded-xl transition-all shadow-sm">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- EASTER EGG MODAL -->
+    <div id="easterEggModal" class="fixed inset-0 z-50 easter-egg-modal hidden flex items-center justify-center p-4">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeEasterEgg()">&times;</button>
+            <h3>🤔 Anda Bosan?</h3>
+            <p>Mainkan game Dino di sini!</p>
+            <button class="btn-yes" onclick="openDinoGame()">Ya, Ayo!</button>
+            <button class="btn-no" onclick="closeEasterEgg()">Tidak</button>
+        </div>
+    </div>
+
+    <!-- DINO GAME MODAL -->
+    <div id="dinoGameModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="relative w-full max-w-2xl">
+            <button onclick="closeDinoGame()" class="absolute -top-12 right-0 text-white/70 hover:text-white text-2xl transition-colors"><i class="fa-solid fa-xmark"></i></button>
+            <div id="dinoGameContainer">
+                <div class="dino-score" id="dinoScore">0</div>
+                <div class="dino-hat-indicator" id="dinoHatIndicator">🎩 none</div>
+                <div class="dino-hint">Tekan SPASI atau klik layar untuk melompat</div>
+                <canvas id="dinoCanvas" width="600" height="250"></canvas>
+                <div class="game-overlay" id="gameOverlay">
+                    <h2>⏸️ Game Over</h2>
+                    <div class="sub-score">Poin: <span id="pauseTotalScore">0</span></div>
+                    <div class="shop-section">
+                        <div class="shop-title">🎩 TOKO TOPI</div>
+                        <div class="shop-items" id="shopItems"></div>
+                    </div>
+                    <button class="btn-continue" id="btnContinueGame">▶ Main lagi</button>
+                    <div class="reset-hint">Poin tetap tersimpan — beli topi di sini</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-purpleDark text-white text-xs font-futura-bold px-4 py-2.5 rounded-xl shadow-xl transition-all duration-300 opacity-0 pointer-events-none translate-y-4 flex items-center gap-2">
+        <i class="fa-solid fa-circle-check text-lavender-300 text-sm" id="toastIcon"></i>
+        <span id="toastMsg">Pesan terkirim!</span>
+    </div>
+
+    <script>
+        // ================================================================
+        //  DEFAULT DATA & STATE
+        // ================================================================
+        const DEFAULT_SECTIONS = [
+            { id:'sec1', name:'Portofolio', template:'horizontal-carousel', items:[
+                { id:'it1', title:'Bloom Wellness Mobile', category:'UI/UX App', image:'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=500', desc:'Aplikasi meditasi & kesehatan mental dengan tema pastel calming UI.', link:'#' },
+                { id:'it2', title:'Lavender E-Commerce', category:'Web Design', image:'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=500', desc:'Toko online produk organik ramah lingkungan dengan navigasi responsif.', link:'#' },
+                { id:'it3', title:'Fintech Smart Wallet', category:'Dashboard', image:'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=500', desc:'Analisis keuangan pribadi & dompet digital dengan chart simpel.', link:'#' },
+                { id:'it4', title:'Aura Coffee Branding', category:'Branding', image:'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&q=80&w=500', desc:'Identitas visual modern lengkap untuk jaringan kafe estetis.', link:'#' },
+                { id:'it5', title:'EcoTrack App', category:'UI/UX', image:'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&q=80&w=500', desc:'Pelacakan jejak karbon dengan antarmuka yang menenangkan.', link:'#' },
+                { id:'it6', title:'Kopi Nusantara', category:'Web Design', image:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=500', desc:'Platform pemasaran kopi lokal dengan tampilan hangat.', link:'#' },
+                { id:'it7', title:'Mindful Journal', category:'Mobile App', image:'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&q=80&w=500', desc:'Aplikasi jurnal harian dengan fitur refleksi dan mood tracker.', link:'#' },
+                { id:'it8', title:'Studio Art Gallery', category:'Branding', image:'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=500', desc:'Identitas visual untuk galeri seni kontemporer.', link:'#' },
+                { id:'it9', title:'FitTrack Pro', category:'UI/UX', image:'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&q=80&w=500', desc:'Aplikasi kebugaran dengan gamifikasi dan komunitas.', link:'#' },
+                { id:'it10', title:'Smart Home Dashboard', category:'Dashboard', image:'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&q=80&w=500', desc:'Kontrol perangkat rumah pintar dalam satu tampilan.', link:'#' },
+                { id:'it11', title:'Batik Heritage', category:'Web Design', image:'https://images.unsplash.com/photo-1541560052-77ec5abc09f6?auto=format&fit=crop&q=80&w=500', desc:'Platform edukasi batik nusantara dengan visual kaya.', link:'#' }
+            ]},
+            { id:'sec2', name:'Hobi & Minat', template:'icon-grid', items:[
+                { id:'it12', title:'Fotografi', icon:'fa-solid fa-camera', desc:'Minimalist Street Visuals' },
+                { id:'it13', title:'Creative Code', icon:'fa-solid fa-code', desc:'Tailwind & UI Magic' },
+                { id:'it14', title:'Membaca', icon:'fa-solid fa-book-open', desc:'UI Psychology & Books' },
+                { id:'it15', title:'Kopi & Sketsa', icon:'fa-solid fa-mug-hot', desc:'Wireframing Ide Baru' }
+            ]},
+            { id:'sec3', name:'Pendidikan', template:'vertical-list', items:[
+                { id:'it16', period:'2018 - 2022', title:'S1 Desain Komunikasi Visual', subtitle:'Universitas Multimedia Nusantara' },
+                { id:'it17', period:'2022', title:'Google UX Design Certificate', subtitle:'Coursera Certification' }
+            ]},
+            { id:'sec4', name:'Pengalaman Kerja', template:'vertical-list', items:[
+                { id:'it18', period:'2022 - Sekarang', title:'Senior Mobile UI Designer', company:'Studio Kreatif Digital', desc:'Mendesain antarmuka aplikasi iOS & Android serta menyusun design system perusahaan.' },
+                { id:'it19', period:'2020 - 2022', title:'Junior Web Designer', company:'Tech Inovasi Indonesia', desc:'Mengembangkan landing page responsif, prototipe interaktif, dan materi visual e-commerce.' }
+            ]}
+        ];
+
+        const DEFAULT_PROFILE = {
+            name:'Alisha Bella', badge:'MOBILE UI/UX DESIGNER',
+            avatar:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400',
+            bio:'Merancang pengalaman digital mobile yang estetis, lembut, dan intuitif dengan pendekatan berpusat pada kenyamanan pengguna.',
+            about:'Desainer UI/UX dengan fokus khusus pada mobile app interfaces dan skema warna harmonis. Berpengalaman 4+ tahun menciptakan desain yang elegan dan bernavigasi ramah ibu jari (thumb-friendly).',
+            location:'Jakarta, ID', status:'Open Project',
+            socialInsta:'https://instagram.com', socialLinkedin:'https://linkedin.com',
+            socialGithub:'https://github.com', socialTwitter:'https://x.com',
+            initials:'ALB', birthday:''
+        };
+
+        const DEFAULT_ADMIN_CREDS = { username:'admin', password:'admin123' };
+        const DEFAULT_PIN = 'ICTMB2';
+
+        // --------------------------------------------------------------
+        //  STATE
+        // --------------------------------------------------------------
+        function loadState() {
+            try {
+                const saved = localStorage.getItem('lavender_portfolio_state');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (!parsed.adminCreds || !parsed.adminCreds.username) parsed.adminCreds = { ...DEFAULT_ADMIN_CREDS };
+                    if (!parsed.adminPin) parsed.adminPin = DEFAULT_PIN;
+                    return {
+                        sections: parsed.sections || [],
+                        profile: parsed.profile || DEFAULT_PROFILE,
+                        adminCreds: parsed.adminCreds || { ...DEFAULT_ADMIN_CREDS },
+                        adminPin: parsed.adminPin || DEFAULT_PIN,
+                        inboxMessages: parsed.inboxMessages || [],
+                        isAdminLoggedIn: sessionStorage.getItem('admin_logged_in') === 'true',
+                        isDarkMode: parsed.isDarkMode || false,
+                    };
+                }
+            } catch(e) {}
+            return {
+                sections: DEFAULT_SECTIONS,
+                profile: DEFAULT_PROFILE,
+                adminCreds: { ...DEFAULT_ADMIN_CREDS },
+                adminPin: DEFAULT_PIN,
+                inboxMessages: [],
+                isAdminLoggedIn: sessionStorage.getItem('admin_logged_in') === 'true',
+                isDarkMode: false,
+            };
+        }
+
+        let state = loadState();
+        let paginationState = {};
+
+        function saveState() {
+            try {
+                localStorage.setItem('lavender_portfolio_state', JSON.stringify({
+                    sections: state.sections, profile: state.profile,
+                    adminCreds: state.adminCreds, adminPin: state.adminPin,
+                    inboxMessages: state.inboxMessages, isDarkMode: state.isDarkMode
+                }));
+            } catch(e) {}
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast'), m = document.getElementById('toastMsg');
+            if (!t||!m) return;
+            m.innerText = msg;
+            t.classList.remove('opacity-0','pointer-events-none','translate-y-4');
+            t.classList.add('opacity-100','translate-y-0');
+            setTimeout(()=>{ t.classList.remove('opacity-100','translate-y-0'); t.classList.add('opacity-0','pointer-events-none','translate-y-4'); },3000);
+        }
+        function genId() { return Date.now().toString(36) + Math.random().toString(36).substring(2,6); }
+        function fmtDate(d) { if(!d) return 'Belum diisi'; const dt = new Date(d+'T00:00:00'); return dt.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}); }
+
+        // DARK MODE
+        function applyTheme() {
+            const html = document.documentElement, icon = document.getElementById('themeIcon');
+            if (state.isDarkMode) { html.classList.add('dark'); icon.className = 'fa-solid fa-sun'; }
+            else { html.classList.remove('dark'); icon.className = 'fa-solid fa-moon'; }
+        }
+        function toggleTheme() { state.isDarkMode = !state.isDarkMode; saveState(); applyTheme(); }
+
+        // ================================================================
+        //  RENDER FUNCTIONS
+        // ================================================================
+        function renderAll() {
+            renderProfile(); renderSections(); renderAdminSections(); renderNav(); renderInbox();
+            updateAdminUI(); applyTheme(); updateInboxBadge(); renderInitials();
+        }
+
+        function renderInitials() {
+            const el = document.getElementById('initialsDisplay');
+            if (el) { const i = state.profile.initials || 'ALB'; el.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-lavender-500 inline-block"></span> ${i}.`; }
+        }
+        function renderNav() {
+            const c = document.getElementById('dynamicNavLinks');
+            if (!c) return;
+            c.innerHTML = state.sections.map(s => `<a href="#section-${s.id}" class="px-2.5 py-1 text-xs font-futura-bold text-purpleDark/80 hover:bg-lavender-200/60 rounded-full transition-all whitespace-nowrap">${s.name}</a>`).join('');
+        }
+        function renderProfile() {
+            const p = state.profile;
+            document.getElementById('displayName').innerText = p.name || 'Alisha Bella';
+            document.getElementById('footerName').innerText = p.name || 'Alisha Bella';
+            document.getElementById('displayBadge').innerText = p.badge || 'MOBILE UI/UX DESIGNER';
+            document.getElementById('displayBio').innerText = p.bio || '';
+            document.getElementById('displayAbout').innerText = p.about || '';
+            document.getElementById('displayLocation').innerText = p.location || 'Jakarta, ID';
+            document.getElementById('displayStatus').innerText = p.status || 'Open Project';
+            document.getElementById('displayBirthday').innerText = fmtDate(p.birthday);
+            const av = document.getElementById('displayAvatar');
+            if (av && p.avatar) av.src = p.avatar;
+            if (p.socialInsta) document.getElementById('socialInsta').href = p.socialInsta;
+            if (p.socialLinkedin) document.getElementById('socialLinkedin').href = p.socialLinkedin;
+            if (p.socialGithub) document.getElementById('socialGithub').href = p.socialGithub;
+            if (p.socialTwitter) document.getElementById('socialTwitter').href = p.socialTwitter;
+            renderInitials();
+        }
+
+        function renderGrid(items, secId) {
+            if (!items || !items.length) return '<div class="grid-empty-state">Belum ada item.</div>';
+            const perPage = 9, total = Math.ceil(items.length / perPage);
+            if (!paginationState[secId] || paginationState[secId] >= total) paginationState[secId] = 0;
+            const page = paginationState[secId] || 0, start = page * perPage, end = Math.min(start + perPage, items.length), pageItems = items.slice(start, end);
+            let cards = '';
+            pageItems.forEach(item => {
+                const img = item.image || 'https://placehold.co/500x300/E2D1F3/584175?text=Folder', cat = item.category || 'Item', title = item.title || 'Untitled', desc = item.desc || '', link = item.link || '#';
+                cards += `<div class="folder-card"><span class="folder-tab">${cat}</span><div class="folder-body"><div class="folder-image"><img src="${img}" alt="${title}" onerror="this.onerror=null;this.src='https://placehold.co/500x300/E2D1F3/584175?text=Gambar'" loading="lazy" /></div><div class="folder-title">${title}</div>${desc?'<div class="folder-desc">'+desc+'</div>':''}${link&&link!=='#'?'<a href="'+link+'" target="_blank" class="folder-link">Lihat Detail <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i></a>':''}</div></div>`;
+            });
+            let pag = '';
+            if (total > 1) {
+                pag = `<div class="pagination-wrapper"><button class="pagination-btn" onclick="changePage('${secId}',-1)" ${page===0?'disabled':''}><i class="fa-solid fa-chevron-left"></i></button><span class="pagination-indicator">${page+1} / ${total}</span><button class="pagination-btn" onclick="changePage('${secId}',1)" ${page>=total-1?'disabled':''}><i class="fa-solid fa-chevron-right"></i></button></div>`;
+            }
+            return `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">${cards}</div>${pag}`;
+        }
+        window.changePage = function(id, d) {
+            const sec = state.sections.find(s => s.id === id);
+            if (!sec) return;
+            const perPage = 9, total = Math.ceil(sec.items.length / perPage);
+            if (total <= 1) return;
+            if (!paginationState[id]) paginationState[id] = 0;
+            let np = paginationState[id] + d;
+            if (np < 0) np = 0;
+            if (np >= total) np = total - 1;
+            paginationState[id] = np;
+            renderSections();
+            setTimeout(() => { document.querySelectorAll('.section-template-icon-grid .hobby-card').forEach(c => c.addEventListener('click', function(){ this.classList.toggle('active'); })); }, 50);
+        };
+
+        function renderSections() {
+            const c = document.getElementById('dynamic-sections');
+            if (!c) return;
+            if (!state.sections || !state.sections.length) { c.innerHTML = '<div class="text-center text-purpleDark/50 text-xs py-12">Belum ada bagian. Tambahkan dari Admin Panel.</div>'; return; }
+            let html = '';
+            state.sections.forEach(sec => {
+                html += `<section id="section-${sec.id}" class="space-y-3">`;
+                html += `<div class="flex items-center gap-2"><div class="w-2 h-5 bg-lavender-500 rounded-full"></div><h2 class="text-xl font-futura-bold text-purpleDark">${sec.name}</h2></div>`;
+                html += `<div class="section-template-${sec.template}">`;
+                if (sec.template === 'horizontal-carousel') html += renderGrid(sec.items, sec.id);
+                else if (sec.template === 'vertical-list') html += renderVertical(sec.items);
+                else if (sec.template === 'icon-grid') html += renderIconGrid(sec.items);
+                else html += '<p class="text-xs text-purpleDark/50">Template tidak dikenali</p>';
+                html += `</div></section>`;
+            });
+            c.innerHTML = html;
+            document.querySelectorAll('.section-template-icon-grid .hobby-card').forEach(card => {
+                card.addEventListener('click', function() { this.classList.toggle('active'); });
+            });
+        }
+
+        function renderVertical(items) {
+            if (!items || !items.length) return '<p class="text-xs text-purpleDark/50">Belum ada item.</p>';
+            return `<div class="space-y-2.5 relative before:absolute before:inset-0 before:left-3 before:w-0.5 before:bg-lavender-200">${items.map(item=>`<div class="relative pl-7 bg-white p-3.5 rounded-2xl border border-lavender-200/70 soft-shadow"><div class="absolute left-1.5 top-4 w-3 h-3 rounded-full bg-lavender-500 border-2 border-white"></div>${item.period?'<span class="text-[9px] font-futura-bold bg-lavender-100 text-lavender-600 px-2 py-0.5 rounded-full">'+item.period+'</span>':''}<h3 class="font-futura-bold text-purpleDark text-sm mt-1">${item.title}</h3>${item.subtitle?'<p class="text-[11px] text-purpleDark/70">'+item.subtitle+'</p>':''}${item.company?'<p class="text-[11px] text-lavender-600 font-semibold">'+item.company+'</p>':''}${item.desc?'<p class="text-[11px] text-purpleDark/80 leading-relaxed pt-1">'+item.desc+'</p>':''}</div>`).join('')}</div>`;
+        }
+
+        function renderIconGrid(items) {
+            if (!items || !items.length) return '<p class="text-xs text-purpleDark/50">Belum ada item.</p>';
+            return `<div class="grid grid-cols-2 md:grid-cols-4 gap-3">${items.map(item=>`<div class="hobby-card bg-white p-3.5 rounded-2xl border border-lavender-200/80 soft-shadow soft-shadow-hover transition-all text-center space-y-1.5 cursor-pointer"><div class="w-10 h-10 mx-auto rounded-xl bg-lavender-100 text-lavender-600 flex items-center justify-center text-lg"><i class="${item.icon||'fa-solid fa-star'}"></i></div><h3 class="font-futura-bold text-purpleDark text-xs truncate">${item.title}</h3><div class="detail-reveal"><p class="text-purpleDark/70 text-[10px] line-clamp-2">${item.desc||''}</p></div></div>`).join('')}</div>`;
+        }
+
+        // INBOX
+        function renderInbox() {
+            const c = document.getElementById('inboxList');
+            if (!c) return;
+            const msgs = state.inboxMessages || [];
+            if (!msgs.length) { c.innerHTML = '<p class="text-xs text-purpleDark/50 text-center py-8">Belum ada pesan masuk.</p>'; return; }
+            let html = '';
+            msgs.slice().reverse().forEach(msg => {
+                const d = new Date(msg.timestamp), ds = d.toLocaleString('id-ID',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+                html += `<div class="bg-lavender-50 p-3 rounded-xl border border-lavender-200/70 soft-shadow"><div class="flex justify-between items-start"><div><span class="font-futura-bold text-purpleDark text-sm">${msg.name}</span><span class="text-[10px] text-purpleDark/50 ml-2">${msg.email}</span></div><span class="text-[10px] text-purpleDark/40">${ds}</span></div><p class="text-xs text-purpleDark/80 mt-1 leading-relaxed">${msg.message}</p><button onclick="delMsg('${msg.id}')" class="text-[10px] text-rose-500 hover:underline mt-1">Hapus</button></div>`;
+            });
+            c.innerHTML = html;
+            updateInboxBadge();
+        }
+        function updateInboxBadge() {
+            const b = document.getElementById('inboxBadge');
+            if (!b) return;
+            const n = (state.inboxMessages || []).length;
+            if (n > 0) { b.innerText = n; b.classList.remove('hidden'); } else { b.classList.add('hidden'); }
+        }
+        function delMsg(id) { state.inboxMessages = state.inboxMessages.filter(m => m.id !== id); saveState(); renderInbox(); showToast('Pesan dihapus.'); }
+
+        // ADMIN UI
+        function updateAdminUI() {
+            const lock = document.getElementById('adminLockIcon'), btn = document.getElementById('adminTriggerBtn');
+            if (!lock || !btn) return;
+            if (state.isAdminLoggedIn) { lock.className = 'fa-solid fa-sliders text-lavender-600'; btn.classList.add('bg-lavender-300','ring-2','ring-lavender-500'); }
+            else { lock.className = 'fa-solid fa-lock'; btn.classList.remove('bg-lavender-300','ring-2','ring-lavender-500'); }
+        }
+        window.toggleAdminModal = function() { if (state.isAdminLoggedIn) openAdminPanel(); else document.getElementById('adminLoginModal').classList.remove('hidden'); };
+        window.closeAdminLoginModal = function() { document.getElementById('adminLoginModal').classList.add('hidden'); document.getElementById('loginErrorMsg').classList.add('hidden'); };
+        window.openAdminPanel = function() { populateProfile(); renderAdminSections(); renderInbox(); document.getElementById('adminPanelModal').classList.remove('hidden'); };
+        window.closeAdminPanel = function() { document.getElementById('adminPanelModal').classList.add('hidden'); };
+
+        // LOGIN
+        window.handleAdminLogin = function(e) {
+            e.preventDefault();
+            const user = document.getElementById('adminUser').value.trim(), pass = document.getElementById('adminPass').value.trim(), err = document.getElementById('loginErrorMsg');
+            if (!state.adminCreds || !state.adminCreds.username) state.adminCreds = { ...DEFAULT_ADMIN_CREDS };
+            const creds = state.adminCreds;
+            if (user === creds.username && pass === creds.password) {
+                err.classList.add('hidden');
+                state.isAdminLoggedIn = true;
+                sessionStorage.setItem('admin_logged_in', 'true');
+                closeAdminLoginModal();
+                updateAdminUI();
+                showToast('Login berhasil!');
+                openAdminPanel();
+            } else {
+                err.innerText = 'Username atau password salah!';
+                err.classList.remove('hidden');
+            }
+        };
+        window.logoutAdmin = function() { state.isAdminLoggedIn = false; sessionStorage.removeItem('admin_logged_in'); updateAdminUI(); closeAdminPanel(); showToast('Logout berhasil.'); };
+
+        // RESET CREDS
+        window.showResetCreds = function() { document.getElementById('resetPinInput').value = ''; document.getElementById('resetCredsError').classList.add('hidden'); closeAdminLoginModal(); document.getElementById('resetCredsModal').classList.remove('hidden'); };
+        window.closeResetCredsModal = function() { document.getElementById('resetCredsModal').classList.add('hidden'); };
+        window.handleResetCreds = function(e) {
+            e.preventDefault();
+            const pin = document.getElementById('resetPinInput').value.trim(), err = document.getElementById('resetCredsError');
+            if (pin !== (state.adminPin || DEFAULT_PIN)) { err.innerText = 'PIN salah!'; err.classList.remove('hidden'); return; }
+            state.adminCreds = { username:'admin', password:'admin123' };
+            saveState();
+            closeResetCredsModal();
+            showToast('Kredensial direset ke default (admin/admin123)');
+            document.getElementById('adminLoginModal').classList.remove('hidden');
+            document.getElementById('adminUser').value = ''; document.getElementById('adminPass').value = '';
+        };
+
+        // SECTIONS
+        function renderAdminSections() {
+            const c = document.getElementById('adminSectionsList');
+            if (!c) return;
+            if (!state.sections || !state.sections.length) { c.innerHTML = '<div class="text-center text-purpleDark/50 text-xs py-6">Belum ada bagian. Klik "Tambah Bagian".</div>'; return; }
+            let html = '';
+            state.sections.forEach(sec => {
+                html += `<div class="bg-lavender-50 p-4 rounded-2xl border border-lavender-200 soft-shadow space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3"><span class="font-futura-bold text-purpleDark text-base">${sec.name}</span><span class="text-[10px] bg-lavender-200 text-purpleDark px-2 py-0.5 rounded-full">${sec.template}</span></div>
+                                <div class="flex items-center gap-1.5">
+                                    <button onclick="editSection('${sec.id}')" class="px-2.5 py-1 bg-lavender-200 text-purpleDark rounded-xl font-futura-bold text-[11px] hover:bg-lavender-300 transition-all">Edit</button>
+                                    <button onclick="delSection('${sec.id}')" class="px-2.5 py-1 bg-rose-100 text-rose-600 rounded-xl font-futura-bold text-[11px] hover:bg-rose-200 transition-all"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                ${sec.items.map(item => `<div class="flex items-center justify-between bg-white p-2 rounded-xl border border-lavender-200 text-xs shadow-sm"><span class="font-futura-bold text-purpleDark truncate max-w-[150px]">${item.title}</span><div class="flex items-center gap-1.5"><button onclick="editItem('${sec.id}','${item.id}')" class="px-2 py-0.5 bg-lavender-200 text-purpleDark rounded-lg font-futura-bold text-[10px] hover:bg-lavender-300 transition-all">Edit</button><button onclick="delItem('${sec.id}','${item.id}')" class="px-2 py-0.5 bg-rose-100 text-rose-600 rounded-lg font-futura-bold text-[10px] hover:bg-rose-200 transition-all"><i class="fa-solid fa-trash"></i></button></div></div>`).join('')}
+                                <button onclick="openAddItem('${sec.id}')" class="text-xs text-lavender-600 hover:underline font-futura-bold flex items-center gap-1"><i class="fa-solid fa-plus"></i> Tambah Item</button>
+                            </div>
+                        </div>`;
+            });
+            c.innerHTML = html;
+        }
+
+        window.openAddSectionModal = function() { document.getElementById('newSectionName').value = ''; document.getElementById('newSectionTemplate').value = 'horizontal-carousel'; document.getElementById('addSectionModal').classList.remove('hidden'); };
+        window.closeAddSectionModal = function() { document.getElementById('addSectionModal').classList.add('hidden'); };
+        window.handleAddSection = function(e) {
+            e.preventDefault();
+            const name = document.getElementById('newSectionName').value.trim(), tmpl = document.getElementById('newSectionTemplate').value;
+            if (!name) return;
+            const ns = { id: genId(), name, template: tmpl, items: [] };
+            state.sections.push(ns); paginationState[ns.id] = 0; saveState(); renderAll(); closeAddSectionModal(); showToast('Bagian ditambahkan!');
+        };
+        window.delSection = function(id) { if (!confirm('Hapus bagian ini?')) return; state.sections = state.sections.filter(s => s.id !== id); delete paginationState[id]; saveState(); renderAll(); showToast('Bagian dihapus.'); };
+        window.editSection = function(id) {
+            const sec = state.sections.find(s => s.id === id); if (!sec) return;
+            const nm = prompt('Nama baru:', sec.name); if (nm !== null && nm.trim()) sec.name = nm.trim();
+            const tp = prompt('Template (horizontal-carousel, vertical-list, icon-grid):', sec.template);
+            if (tp !== null && ['horizontal-carousel','vertical-list','icon-grid'].includes(tp)) sec.template = tp;
+            saveState(); renderAll(); showToast('Bagian diperbarui.');
+        };
+
+        // ITEMS
+        window.openAddItem = function(sid) {
+            document.getElementById('editItemSectionId').value = sid; document.getElementById('editItemId').value = '';
+            ['itemTitleInput','itemCategoryInput','itemImageInput','itemLinkInput','itemIconInput','itemEduPeriodInput','itemEduSubtitleInput','itemExpCompanyInput','itemDescInput'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('itemIconInput').value = 'fa-solid fa-star';
+            document.getElementById('portfolioSpecificFields').classList.remove('hidden');
+            document.getElementById('hobbySpecificFields').classList.remove('hidden');
+            document.getElementById('educationSpecificFields').classList.remove('hidden');
+            document.getElementById('experienceSpecificFields').classList.remove('hidden');
+            document.getElementById('itemModalTitle').innerText = 'Tambah Item';
+            document.getElementById('labelTitleInput').innerText = 'Judul';
+            document.getElementById('labelDescInput').innerText = 'Deskripsi';
+            document.getElementById('itemEditModal').classList.remove('hidden');
+        };
+        window.editItem = function(sid, iid) {
+            const sec = state.sections.find(s => s.id === sid); if (!sec) return;
+            const item = sec.items.find(i => i.id === iid); if (!item) return;
+            document.getElementById('editItemSectionId').value = sid; document.getElementById('editItemId').value = iid;
+            document.getElementById('itemTitleInput').value = item.title || '';
+            document.getElementById('itemCategoryInput').value = item.category || '';
+            document.getElementById('itemImageInput').value = item.image || '';
+            document.getElementById('itemLinkInput').value = item.link || '';
+            document.getElementById('itemIconInput').value = item.icon || 'fa-solid fa-star';
+            document.getElementById('itemEduPeriodInput').value = item.period || '';
+            document.getElementById('itemEduSubtitleInput').value = item.subtitle || '';
+            document.getElementById('itemExpCompanyInput').value = item.company || '';
+            document.getElementById('itemDescInput').value = item.desc || '';
+            document.getElementById('itemModalTitle').innerText = 'Edit Item';
+            document.getElementById('labelTitleInput').innerText = 'Judul';
+            document.getElementById('labelDescInput').innerText = 'Deskripsi';
+            document.getElementById('itemEditModal').classList.remove('hidden');
+        };
+        window.closeItemModal = function() { document.getElementById('itemEditModal').classList.add('hidden'); };
+        window.handleSaveItem = function(e) {
+            e.preventDefault();
+            const sid = document.getElementById('editItemSectionId').value, iid = document.getElementById('editItemId').value;
+            const sec = state.sections.find(s => s.id === sid); if (!sec) return;
+            const title = document.getElementById('itemTitleInput').value.trim(); if (!title) return;
+            const item = {
+                id: iid || genId(), title,
+                category: document.getElementById('itemCategoryInput').value.trim(),
+                image: document.getElementById('itemImageInput').value.trim(),
+                link: document.getElementById('itemLinkInput').value.trim(),
+                icon: document.getElementById('itemIconInput').value.trim() || 'fa-solid fa-star',
+                period: document.getElementById('itemEduPeriodInput').value.trim(),
+                subtitle: document.getElementById('itemEduSubtitleInput').value.trim(),
+                company: document.getElementById('itemExpCompanyInput').value.trim(),
+                desc: document.getElementById('itemDescInput').value.trim()
+            };
+            if (iid) { const idx = sec.items.findIndex(i => i.id === iid); if (idx !== -1) sec.items[idx] = item; }
+            else sec.items.push(item);
+            paginationState[sid] = 0; saveState(); renderAll(); closeItemModal(); showToast('Item disimpan!');
+        };
+        window.delItem = function(sid, iid) {
+            if (!confirm('Hapus item ini?')) return;
+            const sec = state.sections.find(s => s.id === sid); if (!sec) return;
+            sec.items = sec.items.filter(i => i.id !== iid);
+            if (paginationState[sid] && paginationState[sid] > 0) { const pp=9, tp=Math.ceil(sec.items.length/pp); if (paginationState[sid] >= tp) paginationState[sid] = Math.max(0, tp-1); }
+            saveState(); renderAll(); showToast('Item dihapus.');
+        };
+
+        // CHANGE CREDS (PIN)
+        window.openChangeCredsModal = function() { if (!state.isAdminLoggedIn) { showToast('Harap login terlebih dahulu.'); return; } document.getElementById('changePin').value = ''; document.getElementById('changeNewUser').value = ''; document.getElementById('changeNewPass').value = ''; document.getElementById('changeCredsError').classList.add('hidden'); document.getElementById('changeCredsModal').classList.remove('hidden'); };
+        window.closeChangeCredsModal = function() { document.getElementById('changeCredsModal').classList.add('hidden'); };
+        window.handleChangeCreds = function(e) {
+            e.preventDefault();
+            const pin = document.getElementById('changePin').value.trim(), nu = document.getElementById('changeNewUser').value.trim(), np = document.getElementById('changeNewPass').value.trim(), err = document.getElementById('changeCredsError');
+            if (pin !== (state.adminPin || DEFAULT_PIN)) { err.innerText = 'PIN salah!'; err.classList.remove('hidden'); return; }
+            if (!nu || !np) { err.innerText = 'Username & password tidak boleh kosong.'; err.classList.remove('hidden'); return; }
+            state.adminCreds = { username: nu, password: np }; saveState(); closeChangeCredsModal(); showToast('Kredensial berhasil diubah!');
+        };
+
+        // CHANGE PIN
+        window.openChangePinModal = function() { if (!state.isAdminLoggedIn) { showToast('Harap login terlebih dahulu.'); return; } document.getElementById('oldPinDirect').value = ''; document.getElementById('newPinDirect').value = ''; document.getElementById('changePinError').classList.add('hidden'); document.getElementById('changePinModal').classList.remove('hidden'); };
+        window.closeChangePinModal = function() { document.getElementById('changePinModal').classList.add('hidden'); };
+        window.handleChangePinDirect = function(e) {
+            e.preventDefault();
+            const old = document.getElementById('oldPinDirect').value.trim(), np = document.getElementById('newPinDirect').value.trim(), err = document.getElementById('changePinError');
+            if (old !== (state.adminPin || DEFAULT_PIN)) { err.innerText = 'PIN lama salah!'; err.classList.remove('hidden'); return; }
+            if (np.length !== 6 || !/^\d{6}$/.test(np)) { err.innerText = 'PIN baru harus 6 digit angka.'; err.classList.remove('hidden'); return; }
+            state.adminPin = np; saveState(); closeChangePinModal(); showToast('PIN berhasil diganti!');
+        };
+
+        // PROFILE
+        window.handleSaveProfile = function(e) {
+            e.preventDefault();
+            state.profile = {
+                name: document.getElementById('editName').value,
+                badge: document.getElementById('editBadge').value,
+                avatar: document.getElementById('editAvatar').value,
+                bio: document.getElementById('editBio').value,
+                about: document.getElementById('editAbout').value,
+                location: document.getElementById('editLocation').value,
+                status: document.getElementById('editStatus').value,
+                socialInsta: document.getElementById('editInsta').value,
+                socialLinkedin: document.getElementById('editLinkedin').value,
+                socialGithub: document.getElementById('editGithub').value,
+                socialTwitter: document.getElementById('editTwitter').value,
+                initials: document.getElementById('editInitials').value.trim() || 'ALB',
+                birthday: document.getElementById('editBirthday').value
+            };
+            saveState(); renderProfile(); showToast('Profil diperbarui!');
+        };
+        function populateProfile() {
+            const p = state.profile;
+            document.getElementById('editName').value = p.name || '';
+            document.getElementById('editBadge').value = p.badge || '';
+            document.getElementById('editAvatar').value = p.avatar || '';
+            document.getElementById('editBio').value = p.bio || '';
+            document.getElementById('editAbout').value = p.about || '';
+            document.getElementById('editLocation').value = p.location || '';
+            document.getElementById('editStatus').value = p.status || '';
+            document.getElementById('editInsta').value = p.socialInsta || '';
+            document.getElementById('editLinkedin').value = p.socialLinkedin || '';
+            document.getElementById('editGithub').value = p.socialGithub || '';
+            document.getElementById('editTwitter').value = p.socialTwitter || '';
+            document.getElementById('editInitials').value = p.initials || 'ALB';
+            document.getElementById('editBirthday').value = p.birthday || '';
+        }
+
+        // CONTACT FORM
+        window.handleFormSubmit = function(e) {
+            e.preventDefault();
+            const fd = new FormData(e.target), data = { name: fd.get('name')||'', email: fd.get('email')||'', message: fd.get('message')||'' };
+            if (!data.name || !data.email || !data.message) { showToast('Harap isi semua kolom!'); return; }
+            state.inboxMessages.push({ id: genId(), ...data, timestamp: Date.now() });
+            saveState(); e.target.reset(); renderInbox(); updateInboxBadge(); showToast('✅ Pesan tersimpan di inbox!');
+        };
+
+        // RESET TOTAL
+        window.resetDataToDefault = function() {
+            if (!confirm('RESET TOTAL: Semua bagian dan item akan dihapus. Lanjutkan?')) return;
+            paginationState = {};
+            state.sections = [];
+            state.profile = { ...DEFAULT_PROFILE };
+            state.inboxMessages = [];
+            saveState(); renderAll(); showToast('Data di-reset total!');
+        };
+
+        // TAB SWITCH
+        window.switchAdminTab = function(tab) {
+            ['sections','profile','inbox'].forEach(t => {
+                const c = document.getElementById('tabContent' + t.charAt(0).toUpperCase() + t.slice(1));
+                const b = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
+                if (c) c.classList.add('hidden');
+                if (b) b.className = 'w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-futura-bold text-purpleDark hover:bg-lavender-100 transition-all whitespace-nowrap';
+            });
+            const ac = document.getElementById('tabContent' + tab.charAt(0).toUpperCase() + tab.slice(1));
+            const ab = document.getElementById('tabBtn' + tab.charAt(0).toUpperCase() + tab.slice(1));
+            if (ac) ac.classList.remove('hidden');
+            if (ab) ab.className = 'w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-futura-bold bg-lavender-500 text-white shadow-sm transition-all whitespace-nowrap';
+            if (tab === 'inbox') renderInbox();
+        };
+
+        // ================================================================
+        //  EASTER EGG
+        // ================================================================
+        let clickCount = 0, clickTimer = null;
+        function setupEasterEgg() {
+            const el = document.getElementById('initialsDisplay');
+            if (!el) return;
+            el.addEventListener('click', function() {
+                clickCount++;
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => { clickCount = 0; }, 2000);
+                if (clickCount >= 10) { clickCount = 0; clearTimeout(clickTimer); document.getElementById('easterEggModal').classList.remove('hidden'); }
+            });
+        }
+        window.closeEasterEgg = function() { document.getElementById('easterEggModal').classList.add('hidden'); };
+
+        // ================================================================
+        //  DINO GAME — satu scoreboard (poin) untuk semua
+        //  Harga topi lebih murah (max 50) dan kecepatan meningkat lebih cepat
+        // ================================================================
+        const HATS = [
+            { id: 'none', label: 'none', emoji: '🎩', cost: 0 },
+            { id: 'topi', label: 'Topi', emoji: '🧢', cost: 10 },
+            { id: 'helm', label: 'Helm', emoji: '⛑️', cost: 20 },
+            { id: 'mahkota', label: 'Mahkota', emoji: '👑', cost: 35 },
+            { id: 'topi_tinggi', label: 'Topi Tinggi', emoji: '🎩', cost: 50 },
+        ];
+
+        let dinoCanvas, dinoCtx, dinoGameRunning = null;
+        let dinoGameState = {
+            dino: { x: 50, y: 180, w: 28, h: 34, vy: 0, jumping: false },
+            ground: 210,
+            obstacles: [],
+            score: 0,
+            speed: 4,
+            gravity: 0.6,
+            jumpPower: -11,
+            gameOver: false,
+            started: false,
+            frame: 0,
+            groundOffset: 0,
+            spawnTimer: 0,
+            ownedHats: [],
+            equippedHat: null,
+        };
+
+        window.openDinoGame = function() {
+            closeEasterEgg();
+            document.getElementById('dinoGameModal').classList.remove('hidden');
+            // Reset game state tapi pertahankan score, ownedHats, equippedHat
+            dinoGameState.dino = { x: 50, y: 180, w: 28, h: 34, vy: 0, jumping: false };
+            dinoGameState.obstacles = [];
+            dinoGameState.gameOver = false;
+            dinoGameState.started = false;
+            dinoGameState.frame = 0;
+            dinoGameState.groundOffset = 0;
+            dinoGameState.spawnTimer = 0;
+            dinoGameState.speed = 4 + Math.floor(dinoGameState.score / 20); // lebih cepat: /20 instead of /50
+            document.getElementById('gameOverlay').classList.remove('show');
+            document.getElementById('dinoScore').innerText = dinoGameState.score;
+            document.getElementById('pauseTotalScore').innerText = dinoGameState.score;
+            updateHatIndicator();
+            setTimeout(startDinoGame, 100);
+        };
+
+        window.closeDinoGame = function() {
+            document.getElementById('dinoGameModal').classList.add('hidden');
+            if (dinoGameRunning) { cancelAnimationFrame(dinoGameRunning); dinoGameRunning = null; }
+            // TIDAK RESET SCORE
+        };
+
+        function startDinoGame() {
+            dinoCanvas = document.getElementById('dinoCanvas');
+            dinoCtx = dinoCanvas.getContext('2d');
+            const container = document.getElementById('dinoGameContainer');
+            const rect = container.getBoundingClientRect();
+            const ratio = 600/250, w = Math.min(600, rect.width - 4), h = w / ratio;
+            dinoCanvas.width = 600; dinoCanvas.height = 250;
+            dinoCanvas.style.width = w + 'px'; dinoCanvas.style.height = h + 'px';
+
+            dinoGameState.dino = { x: 50, y: 180, w: 28, h: 34, vy: 0, jumping: false };
+            dinoGameState.obstacles = [];
+            dinoGameState.speed = 4 + Math.floor(dinoGameState.score / 20); // lebih cepat
+            dinoGameState.gameOver = false;
+            dinoGameState.started = true;
+            dinoGameState.frame = 0;
+            dinoGameState.groundOffset = 0;
+            dinoGameState.spawnTimer = 0;
+
+            document.getElementById('gameOverlay').classList.remove('show');
+            document.getElementById('dinoScore').innerText = dinoGameState.score;
+            updateHatIndicator();
+
+            const handleJump = (e) => {
+                e.preventDefault();
+                if (!dinoGameState.started || dinoGameState.gameOver) return;
+                if (!dinoGameState.dino.jumping) {
+                    dinoGameState.dino.vy = dinoGameState.jumpPower;
+                    dinoGameState.dino.jumping = true;
+                }
+            };
+            dinoCanvas.removeEventListener('click', handleJump);
+            dinoCanvas.addEventListener('click', handleJump);
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' || e.key === ' ') {
+                    e.preventDefault();
+                    if (!dinoGameState.started || dinoGameState.gameOver) return;
+                    if (!dinoGameState.dino.jumping) {
+                        dinoGameState.dino.vy = dinoGameState.jumpPower;
+                        dinoGameState.dino.jumping = true;
+                    }
+                }
+            });
+
+            if (dinoGameRunning) cancelAnimationFrame(dinoGameRunning);
+            dinoGameLoop();
+        }
+
+        function dinoGameLoop() {
+            if (!dinoGameState.started) return;
+            if (dinoGameState.gameOver) {
+                document.getElementById('gameOverlay').classList.add('show');
+                document.getElementById('pauseTotalScore').innerText = dinoGameState.score;
+                renderShop();
+                dinoGameRunning = null;
+                return;
+            }
+            updateDino();
+            renderDino();
+            dinoGameRunning = requestAnimationFrame(dinoGameLoop);
+        }
+
+        function updateDino() {
+            const s = dinoGameState, d = s.dino;
+            d.vy += s.gravity;
+            d.y += d.vy;
+            if (d.y + d.h >= s.ground) { d.y = s.ground - d.h; d.vy = 0; d.jumping = false; }
+
+            s.spawnTimer++;
+            // interval menurun lebih cepat seiring score
+            const interval = Math.max(50, 110 - Math.floor(s.score / 15));
+            if (s.spawnTimer >= interval) {
+                s.spawnTimer = 0;
+                const h = 28 + Math.random() * 20;
+                s.obstacles.push({ x: 600, y: s.ground - h, w: 16 + Math.random() * 10, h: h, scored: false });
+            }
+
+            for (let i = s.obstacles.length - 1; i >= 0; i--) {
+                const o = s.obstacles[i];
+                o.x -= s.speed;
+                if (!o.scored && o.x + o.w < d.x) {
+                    o.scored = true;
+                    s.score++;
+                    document.getElementById('dinoScore').innerText = s.score;
+                    // Kecepatan meningkat lebih agresif
+                    s.speed = 4 + Math.floor(s.score / 20);
+                }
+                if (o.x + o.w < 0) s.obstacles.splice(i, 1);
+            }
+
+            for (const o of s.obstacles) {
+                if (d.x < o.x + o.w && d.x + d.w > o.x && d.y < o.y + o.h && d.y + d.h > o.y) {
+                    s.gameOver = true;
+                    break;
+                }
+            }
+            s.frame++;
+        }
+
+        function renderDino() {
+            const ctx = dinoCtx, s = dinoGameState, d = s.dino, W = 600, H = 250;
+            ctx.clearRect(0, 0, W, H);
+            const grad = ctx.createLinearGradient(0,0,0,H);
+            grad.addColorStop(0, '#1a1a2e'); grad.addColorStop(0.6, '#2d2b55');
+            ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
+            ctx.fillStyle = 'rgba(255,255,255,0.3)';
+            for (let i=0; i<40; i++) { const sx = (i*31 + i*7) % W, sy = (i*17 + i*13) % (s.ground - 20), sz = 1 + (i%3); ctx.beginPath(); ctx.arc(sx,sy,sz,0,Math.PI*2); ctx.fill(); }
+            ctx.fillStyle = '#3a2a5e'; ctx.fillRect(0, s.ground, W, H - s.ground);
+            ctx.strokeStyle = '#b48adf'; ctx.lineWidth = 2;
+            s.groundOffset = (s.groundOffset + s.speed) % 30;
+            for (let x = -s.groundOffset; x < W; x += 30) { ctx.beginPath(); ctx.moveTo(x, s.ground); ctx.lineTo(x+15, s.ground); ctx.stroke(); }
+
+            ctx.shadowColor = 'rgba(180,138,223,0.3)'; ctx.shadowBlur = 10;
+            ctx.fillStyle = '#b48adf';
+            ctx.beginPath(); ctx.roundRect(d.x, d.y, d.w, d.h, 4); ctx.fill();
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = '#1a1a2e';
+            ctx.beginPath(); ctx.arc(d.x + d.w - 8, d.y + 8, 3, 0, Math.PI*2); ctx.fill();
+            ctx.fillStyle = '#b48adf';
+            const legOff = Math.floor(s.frame/6) % 2 === 0 ? 0 : 4;
+            ctx.fillRect(d.x+4, d.y+d.h, 4, 8+legOff);
+            ctx.fillRect(d.x+d.w-8, d.y+d.h, 4, 8-legOff);
+            ctx.fillStyle = '#1a1a2e';
+            ctx.fillRect(d.x+d.w-4, d.y+d.h-8, 4, 2);
+
+            drawHat(ctx, d.x, d.y, d.w, d.h);
+
+            for (const o of s.obstacles) {
+                ctx.shadowBlur = 0;
+                ctx.fillStyle = '#6a5a8e';
+                ctx.beginPath(); ctx.roundRect(o.x, o.y, o.w, o.h, 2); ctx.fill();
+                if (o.h > 30) { ctx.fillRect(o.x-5, o.y+6, 5, 8); ctx.fillRect(o.x+o.w, o.y+12, 5, 8); }
+                if (o.h > 40) { ctx.fillRect(o.x-5, o.y+18, 5, 8); }
+                ctx.fillStyle = 'rgba(180,138,223,0.15)';
+                ctx.fillRect(o.x+2, o.y+2, 4, o.h-4);
+            }
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = '#d8b4fe';
+            ctx.font = '14px "Futura PT", sans-serif'; ctx.fontWeight = '700';
+            ctx.fillText('🏃 ' + s.score, W - 80, 30);
+        }
+
+        function drawHat(ctx, x, y, w, h) {
+            const hatId = dinoGameState.equippedHat;
+            if (!hatId || hatId === 'none') return;
+            const hat = HATS.find(h => h.id === hatId);
+            if (!hat) return;
+            ctx.font = '16px sans-serif'; ctx.textAlign = 'center';
+            ctx.shadowBlur = 8; ctx.shadowColor = 'rgba(0,0,0,0.3)';
+            ctx.fillText(hat.emoji, x + w/2, y - 4);
+            ctx.shadowBlur = 0;
+        }
+
+        function updateHatIndicator() {
+            const el = document.getElementById('dinoHatIndicator');
+            if (!el) return;
+            const hat = HATS.find(h => h.id === dinoGameState.equippedHat);
+            el.innerText = '🎩 ' + (hat ? hat.label : 'none');
+        }
+
+        function renderShop() {
+            const container = document.getElementById('shopItems');
+            if (!container) return;
+            const owned = dinoGameState.ownedHats || [], equipped = dinoGameState.equippedHat;
+            let html = '';
+            HATS.forEach(hat => {
+                const isOwned = owned.includes(hat.id) || hat.id === 'none';
+                const isEquipped = equipped === hat.id;
+                html += `<div class="shop-item ${isOwned?'owned':''} ${isEquipped?'equipped':''}" 
+                            onclick="buyHat('${hat.id}')" 
+                            title="${hat.label} - ${hat.cost>0?'💰 '+hat.cost:'gratis'}">
+                            ${hat.emoji} ${hat.label}
+                            ${hat.cost>0 && !isOwned ? `<span class="price">💰${hat.cost}</span>` : ''}
+                            ${isEquipped ? '<span class="check">✓</span>' : ''}
+                            ${isOwned && !isEquipped && hat.id!=='none' ? '<span class="text-[0.5rem] opacity-40">milik</span>' : ''}
+                        </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        window.buyHat = function(hatId) {
+            if (hatId === 'none') {
+                dinoGameState.equippedHat = 'none';
+                updateHatIndicator(); renderShop();
+                return;
+            }
+            const hat = HATS.find(h => h.id === hatId);
+            if (!hat) return;
+            const owned = dinoGameState.ownedHats || [];
+            if (owned.includes(hatId)) {
+                dinoGameState.equippedHat = hatId;
+                updateHatIndicator(); renderShop();
+                return;
+            }
+            if (dinoGameState.score >= hat.cost) {
+                dinoGameState.score -= hat.cost;
+                dinoGameState.ownedHats.push(hatId);
+                dinoGameState.equippedHat = hatId;
+                document.getElementById('dinoScore').innerText = dinoGameState.score;
+                document.getElementById('pauseTotalScore').innerText = dinoGameState.score;
+                updateHatIndicator();
+                renderShop();
+                showToast('🎉 Membeli ' + hat.label + '!');
+            } else {
+                showToast('💰 Poin tidak cukup!');
+            }
+        };
+
+        // Continue game
+        document.getElementById('btnContinueGame').addEventListener('click', function() {
+            document.getElementById('gameOverlay').classList.remove('show');
+            dinoGameState.gameOver = false;
+            dinoGameState.started = true;
+            dinoGameState.dino = { x: 50, y: 180, w: 28, h: 34, vy: 0, jumping: false };
+            dinoGameState.obstacles = [];
+            dinoGameState.speed = 4 + Math.floor(dinoGameState.score / 20);
+            dinoGameState.frame = 0; dinoGameState.spawnTimer = 0; dinoGameState.groundOffset = 0;
+            document.getElementById('dinoScore').innerText = dinoGameState.score;
+            if (dinoGameRunning) cancelAnimationFrame(dinoGameRunning);
+            dinoGameLoop();
+        });
+
+        // roundRect polyfill
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+            CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r) {
+                if (r > w/2) r = w/2;
+                if (r > h/2) r = h/2;
+                this.moveTo(x+r, y);
+                this.lineTo(x+w-r, y);
+                this.quadraticCurveTo(x+w, y, x+w, y+r);
+                this.lineTo(x+w, y+h-r);
+                this.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+                this.lineTo(x+r, y+h);
+                this.quadraticCurveTo(x, y+h, x, y+h-r);
+                this.lineTo(x, y+r);
+                this.quadraticCurveTo(x, y, x+r, y);
+                this.closePath();
+                return this;
+            };
+        }
+
+        // ================================================================
+        //  NAV HIGHLIGHT
+        // ================================================================
+        const navSections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('header nav a');
+        window.addEventListener('scroll', () => {
+            let cur = '';
+            navSections.forEach(s => { const t = s.offsetTop - 100; if (pageYOffset >= t) cur = s.getAttribute('id'); });
+            navLinks.forEach(l => { l.classList.remove('bg-lavender-200/60','text-purpleDark'); if (l.getAttribute('href') === '#' + cur) l.classList.add('bg-lavender-200/60','text-purpleDark'); });
+        });
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        setupEasterEgg();
+
+        dinoGameState.score = 0;
+        dinoGameState.ownedHats = [];
+        dinoGameState.equippedHat = null;
+        dinoGameState.gameOver = false;
+        dinoGameState.started = false;
+
+        renderAll();
+        state.sections.forEach(sec => { if (!paginationState[sec.id]) paginationState[sec.id] = 0; });
+
+        setTimeout(() => {
+            document.querySelectorAll('.section-template-icon-grid .hobby-card').forEach(c => c.addEventListener('click', function(){ this.classList.toggle('active'); }));
+        }, 200);
+
+        document.getElementById('dinoGameModal').addEventListener('transitionend', function() {
+            if (!this.classList.contains('hidden') && !dinoGameRunning && !dinoGameState.started) {
+                startDinoGame();
+            }
+        });
+
+        console.log('🔐 Kredensial default: admin / admin123');
+        console.log('🔑 PIN default: ICTMB2');
+        console.log('🎩 Harga topi: 0,10,20,35,50');
+        console.log('⚡ Kecepatan bertambah setiap 20 poin');
+    </script>
+
+</body>
+</html>
